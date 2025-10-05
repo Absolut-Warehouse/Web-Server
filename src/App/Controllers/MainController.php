@@ -51,7 +51,7 @@ class MainController
     }
 
     public function faq() {
-        return view('pages/faq');
+        return view('pages/FAQ');
     }
 
 

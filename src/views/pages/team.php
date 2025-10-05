@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('css/team.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/css/team.css') ?>">
 
 </head>
 <body>
