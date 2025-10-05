@@ -1,0 +1,88 @@
+.mission-page {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.mission-page h2,
+.mission-page h3 {
+    color: #f15a24;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.mission-intro,
+.mission-project,
+.mission-details {
+    margin-bottom: 40px;
+    padding: 25px 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.mission-intro:hover,
+.mission-project:hover,
+.mission-details:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.mission-intro p,
+.mission-project p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.mission-details ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    font-size: 1rem;
+}
+
+.mission-details li {
+    margin-bottom: 12px;
+}
+
+.mission-project {
+    border-left: 5px solid #f15a24;
+}
+
+@media (max-width: 600px) {
+    .mission-page {
+        padding: 0 15px;
+    }
+
+    .mission-intro,
+    .mission-project,
+    .mission-details {
+        padding: 20px 15px;
+    }
+}
+
+.mission-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mission-list li {
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.mission-list .bullet {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}

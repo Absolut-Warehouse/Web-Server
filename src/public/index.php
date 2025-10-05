@@ -23,8 +23,9 @@ $config = require __DIR__ . '/../config/config.php';
  * avant le chargement d'une page.
  * Par exemple pour vérifier que l'utilisateur est bien connecté.
  */
-require __DIR__ . '/../app/Controllers/MainController.php';
-
+require __DIR__ . '/../App/Controllers/MainController.php';
+require __DIR__ . '/../App\Controllers\AccountController.php';
+require __DIR__ . '/../App\Controllers\SearchController.php';
 
 /**
  * Routes

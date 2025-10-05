@@ -45,9 +45,8 @@ class Router
         $callback = self::$routes[$method][$uri] ?? null;
 
         if (!$callback) {
-            // à changer, on doit renvoyer une vrai page plutôt
             http_response_code(404);
-            echo "404 - Page not found";
+            echo view("errors/error", ["error_code" => 404, "message" => "Page introuvable."]);
             return;
         }
 

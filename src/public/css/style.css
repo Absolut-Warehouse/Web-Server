@@ -1,0 +1,256 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header, footer {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+main {
+    flex: 1;
+    width: 75%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+
+/**
+ * Partie pour le header
+ */
+
+h1 a {
+    text-decoration: none;
+    color: orange;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    padding: 8px 12px;
+    display: block;
+}
+
+.dropdown {
+    position: relative; /* nécessaire pour dropdown-content */
+}
+
+/* Dropdown menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 130px;
+    padding: 0; /* supprime padding global */
+    border-radius: 4px;
+    z-index: 10;
+    box-shadow: none; /* supprime ombre si nécessaire */
+    background-color: black;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 8px 12px; /* padding seulement pour le texte */
+    color: #ffffff; /* couleur texte par défaut */
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    color: #f15a24; /* juste changer la couleur du texte au hover */
+}
+
+/* Affichage au hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+
+.header-content {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.queue {
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: orange;
+
+}
+
+.nav .nav-menu > li > a {
+    background-color: orange;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-block a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav a:hover > li > a {
+    background-color: #c58a1c;
+}
+.nav-block a:hover{
+    color: #b9b9b9;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+
+
+
+/**
+ * Partie pour le main
+ */
+
+form {
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* espace entre input et button */
+    flex-wrap: wrap; /* passe sur plusieurs lignes sur mobile */
+}
+
+/* Champ texte */
+form input[type="text"] {
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1; /* prend l'espace disponible */
+    min-width: 200px; /* largeur minimum */
+}
+
+button {
+    border-radius: 4px;
+    background-color: orange;
+    border: none;
+    color: black;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 0 36px;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+}
+
+button{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+button:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 16px;
+    right: -20px;
+    transition: 0.5s;
+}
+
+button:hover{
+    padding-right: 24px;
+    padding-left:8px;
+}
+
+button:hover:after {
+    opacity: 1;
+    right: 10px;
+}
+
+.main-content {
+    margin: 0 auto;
+    text-align: center;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+/**
+ * Partie pour le footer
+ */
+
+.site-links {
+    padding: 40px 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.site-links .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.site-links .column {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-links .column h3 {
+    margin-bottom: 10px;
+    color: #696969;
+}
+
+.site-links .column a {
+    color: #bbbbbb;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.site-links .column a:hover {
+    color: #f15a24;
+}
+
+
+

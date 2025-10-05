@@ -15,6 +15,18 @@
 
 use Core\Router;
 use App\Controllers\MainController;
+use App\Controllers\AccountController;
+use App\Controllers\SearchController;
 
 Router::get('/', [MainController::class, 'index']);
-Router::get('/profil', [MainController::class, 'show']);
+Router::get('/FAQ', [MainController::class, 'faq']);
+Router::get('/team', [MainController::class, 'team']);
+Router::get('/mission', [MainController::class, 'mission']);
+Router::get('/contact', [MainController::class, 'contact']);
+Router::get('/technic', [MainController::class, 'index']);
+
+Router::get('/search', [SearchController::class, 'search']);
+
+Router::get('/signup', [AccountController::class, 'signup']);
+Router::get('/signin', [AccountController::class, 'signin']);
+Router::get('/account', [AccountController::class, 'home']);
