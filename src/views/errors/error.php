@@ -1,10 +1,8 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <?= view("partial/common_head") ?>
     <link rel="stylesheet" href="<?= base_url('css/error.css') ?>">
 </head>
 <body>

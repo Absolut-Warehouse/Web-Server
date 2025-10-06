@@ -27,6 +27,7 @@ class SearchController
         if ($orderId) {
             // Par exemple : chercher la commande en base
             // $order = $this->orderModel->findById($orderId);
+            $lang = include __DIR__ . "/../../lang/fr.php";
             return view('pages/search', $commande);
         }
         else {

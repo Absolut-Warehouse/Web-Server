@@ -1,46 +1,41 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('resources/cardbox.png') ?>" />
-    <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
-    <link rel="stylesheet" href="<?= base_url('/css/style.css') ?>">
+    <title><?= htmlspecialchars($title ?? 'Orange Box — '. $data["home"]["title"]) ?></title>
+    <?= view("partial/common_head", $data) ?>
+
 </head>
 <body>
 
-<?= view("partial/header") ?>
+<?= view("partial/header", $data) ?>
 
 <main>
 
     <section class="main-content">
-        <h2>Chercher votre colis</h2>
-        <p>Retrouvez votre colis en donnant l'id de suivis de votre colis transmis par mail.</p>
+        <h2><?= $data["home"]["content"]["package"]["title"] ?></h2>
+        <p><?= $data["home"]["content"]["package"]["text"] ?></p>
         <form action="/search" method="GET">
-            <input type="text" name="order" placeholder="Your ID" required>
-            <button type="submit">Search Now</button>
+            <input type="text" name="order" placeholder="<?= $data["home"]["content"]["package"]["form_placeholder"] ?>" required>
+            <button type="submit"><?= $data["home"]["content"]["package"]["form_button"] ?></button>
         </form>
     </section>
 
 
     <section class="main-content">
-        <h2>Votre colis est en sécurité</h2>
-        <p>Dans les mains de nos employés, votre colis sera en <strong>sécurité</strong>.
-            Nous vous livrerons votre colis dans le plus bref délais.
-            Vous pouvez consulter les estimations en cherchant votre colis sur votre compte
-            ou en insérer simplement l'identifiant de votre colis dans la barre de recherche.
-        </p>
-        <img src="<?= base_url('resources/entrepot.png') ?>" alt="Image of warehouse">
+        <h2><?= $data["home"]["content"]["security"]["title"] ?></h2>
+        <p><?= $data["home"]["content"]["security"]["text"] ?></p>
+        <img src="<?= base_url('/resources/entrepot.png') ?>"
+             alt="<?= $data["home"]["content"]["security"]["alt_img"] ?>">
 
     </section>
 
 
     <section class="main-content contact">
-        <h2>Nous retrouver</h2>
+        <h2><?= $data["home"]["content"]["contact"]["title"] ?></h2>
 
         <div class="contact-info">
-            <p><strong>Adresse :</strong> 123 Rue de l’Exemple, 75000 Paris, France</p>
-            <p><strong>Téléphone :</strong> +33 0 00 00 00 00</p>
+            <p><?= $data["home"]["content"]["contact"]["text_address"] ?></p>
+            <p><?= $data["home"]["content"]["contact"]["text_phone"] ?></p>
         </div>
 
         <div class="map">
@@ -56,14 +51,8 @@
         </div>
     </section>
 
-
-
-
-
-
-
 </main>
 
-<?= view("partial/footer") ?>
+<?= view("partial/footer", $data) ?>
 </body>
 </html>

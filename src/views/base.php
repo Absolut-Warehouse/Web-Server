@@ -1,15 +1,12 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('resources/cardbox.png') ?>" />
-    <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <title><?= htmlspecialchars($title ?? 'Orange Box —'. $data["page_name"]["title"]) ?></title>
+    <?= view("partial/common_head", $data) ?>
 </head>
 <body>
 
-<?= view("partial/header") ?>
+<?= view("partial/header", $data) ?>
 
 <main>
 
@@ -17,6 +14,6 @@
 
 </main>
 
-<?= view("partial/footer") ?>
+<?= view("partial/footer", $data) ?>
 </body>
 </html>

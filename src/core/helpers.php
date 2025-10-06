@@ -55,22 +55,47 @@ if (!function_exists('site_url')) {
     }
 }
 
-/**
- * Redirige l'utilisateur vers une URL
- *
- * @param string $url L'URL vers laquelle rediriger
- * @param int $statusCode Code HTTP (par défaut 302)
- */
-function redirect(string $url, int $statusCode = 302): void {
-    // Nettoyer toute sortie éventuelle
-    if (!headers_sent()) {
-        http_response_code($statusCode);
-        header("Location: $url");
-        exit;
-    } else {
-        // Si les headers ont déjà été envoyés, utiliser JS fallback
-        echo "<script>window.location.href='".htmlspecialchars($url, ENT_QUOTES, 'UTF-8')."';</script>";
-        echo "<noscript><meta http-equiv='refresh' content='0;url=".htmlspecialchars($url, ENT_QUOTES, 'UTF-8')."'></noscript>";
-        exit;
+
+if (!function_exists('redirect')) {
+    /**
+     * Redirige l'utilisateur vers une URL
+     *
+     * @param string $url L'URL vers laquelle rediriger
+     * @param int $statusCode Code HTTP (par défaut 302)
+     */
+    function redirect(string $url, int $statusCode = 302): void
+    {
+        // Nettoyer toute sortie éventuelle
+        if (!headers_sent()) {
+            http_response_code($statusCode);
+            header("Location: $url");
+            exit;
+        } else {
+            // Si les headers ont déjà été envoyés, utiliser JS fallback
+            echo "<script>window.location.href='" . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . "';</script>";
+            echo "<noscript><meta http-equiv='refresh' content='0;url=" . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . "'></noscript>";
+            exit;
+        }
     }
 }
+
+
+if (!function_exists('now')) {
+    function now(string $format = 'Y-m-d H:i:s'): string {
+        return date($format);
+    }
+}
+
+if (!function_exists('time_ago')) {
+    function time_ago(int $timestamp): string {
+        $diff = time() - $timestamp;
+        if ($diff < 60) return "$diff sec ago";
+        $diff = round($diff / 60);
+        if ($diff < 60) return "$diff min ago";
+        $diff = round($diff / 60);
+        if ($diff < 24) return "$diff h ago";
+        $diff = round($diff / 24);
+        return "$diff days ago";
+    }
+}
+

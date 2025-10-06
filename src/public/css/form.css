@@ -36,12 +36,33 @@
     background-color: orange;
     color: black;
     border: none;
-    padding: 12px;
+    padding: 12px 24px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 1rem;
     transition: background-color 0.3s;
 }
+
+
+.register-form button:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 12px;
+    right: -20px;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.register-form button:hover{
+
+}
+
+.register-form button:hover:after {
+    opacity: 1;
+    right: 10px;
+}
+
+
 
 .register-form button:hover {
     background-color: #c58a1c;

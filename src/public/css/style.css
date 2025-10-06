@@ -1,5 +1,8 @@
+html {
+    background-color: black;
+}
+
 html, body {
-    height: 100%;
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -9,6 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: white;
 }
 
 header, footer {
@@ -175,20 +179,21 @@ button{
     display: inline-block;
     position: relative;
     transition: 0.5s;
+    padding: 12px 24px;
 }
 
 button:after {
     content: '»';
     position: absolute;
     opacity: 0;
-    top: 16px;
+    top: 12px;
     right: -20px;
     transition: 0.5s;
+    pointer-events: none;
 }
 
 button:hover{
-    padding-right: 24px;
-    padding-left:8px;
+    background-color: #c58a1c;
 }
 
 button:hover:after {
@@ -226,13 +231,16 @@ button:hover:after {
 .site-links .container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    max-width: 1200px;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 75%;
     margin: 0 auto;
 }
 
+
+
 .site-links .column {
-    flex: 1 1 200px;
+    flex: 0 1 auto;
     display: flex;
     flex-direction: column;
 }

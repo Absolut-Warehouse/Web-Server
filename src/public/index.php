@@ -6,9 +6,11 @@
  * J'ai refait une version superlégère de Symfony,
  * un modèle MCV très très rudimentaire
  */
-require __DIR__ . '/../core/Router.php';
-require __DIR__ . '/../core/View.php';
-require __DIR__ . '/../core/helpers.php';
+require __DIR__ . '/../core/Router.php';//Module de décisions et gestions des controllers
+require __DIR__ . '/../core/View.php'; //Module pour le chargement des views
+require __DIR__ . '/../core/helpers.php'; //Module avec des commandes utiles
+require __DIR__ . '/../core/Lang.php'; //Module de gestion des langues
+
 
 
 /**
@@ -34,12 +36,17 @@ require __DIR__ . '/../App/Controllers/SearchController.php';
 require __DIR__ . '/../routes/web.php';
 
 
-
+use Core\Lang;
 use Core\Router;
 
 /**
  * Cette page s'active à chaque fois qu'un utilisateur cherche à se connecter au site.
  * C'est depuis ici qu'on va décider quel page sera renvoyé.
  */
+
+
+//On charge la langue sauvegardé en cookie
+$langCode = $_COOKIE['lang'] ?? 'fr';
+Lang::init($langCode);
 
 Router::dispatch();

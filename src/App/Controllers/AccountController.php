@@ -5,11 +5,13 @@ namespace App\Controllers;
 class AccountController
 {
     public function signin() {
-        return view('pages/signin');
+        $lang = include __DIR__ . "/../../lang/fr.php";
+        return view('pages/signin', $lang);
     }
 
     public function signup() {
-        return view('pages/signup');
+        $lang = include __DIR__ . "/../../lang/fr.php";
+        return view('pages/signup', $lang);
     }
 
     public function home(){
