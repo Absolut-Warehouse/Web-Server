@@ -1,13 +1,19 @@
+<?php
+
+use Core\Lang;
+$lang = Lang::get();
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
     <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
-    <?= view("partial/common_head") ?>
+    <?= view("partial/common_head", $lang) ?>
     <link rel="stylesheet" href="<?= base_url('/css/order.css') ?>">
 </head>
 <body>
 
-<?= view("partial/header") ?>
+<?= view("partial/header", $lang) ?>
 
 <main class="order-status">
     <div class="order-header">
@@ -39,6 +45,6 @@
     <?php endif; ?>
 </main>
 
-<?= view("partial/footer") ?>
+<?= view("partial/footer", $lang) ?>
 </body>
 </html>

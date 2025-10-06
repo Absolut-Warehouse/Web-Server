@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
     <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
-    <?= view("partial/common_head") ?>
+    <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('/css/mission.css') ?>">
 </head>
 <body>
 
-<?= view("partial/header") ?>
+<?= view("partial/header", $data) ?>
 
 <main class="main-content mission-page">
 
@@ -38,6 +38,6 @@
 </main>
 
 
-<?= view("partial/footer") ?>
+<?= view("partial/footer", $data) ?>
 </body>
 </html>

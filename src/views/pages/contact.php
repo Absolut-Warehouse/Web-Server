@@ -2,28 +2,28 @@
 <html lang="fr">
 <head>
     <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
-    <?= view("partial/common_head") ?>
+    <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('/css/contact.css') ?>">
 </head>
 <body>
 
-<?= view("partial/header") ?>
+<?= view("partial/header", $data) ?>
 
 <main>
 
     <section class="main-content">
-        <h2>Nos contacts</h2>
+        <h2><?= $data["contact"]["content"]["title"] ?></h2>
         <ul>
-            <li>Email : Pas d'email</li>
-            <li>Github : https://github.com/Orange-Box-Warehouse</li>
-            <li>Instagram : Pas de compte</li>
-            <li>Twitter : Pas de compte</li>
-            <li>Facebook : Pas de compte</li>
-            <li>Linkedin :
+            <li><?= $data["contact"]["content"]["mail"] ?></li>
+            <li><?= $data["contact"]["content"]["github"] ?></li>
+            <li><?= $data["contact"]["content"]["instagram"] ?></li>
+            <li><?= $data["contact"]["content"]["twitter"] ?></li>
+            <li><?= $data["contact"]["content"]["facebook"] ?></li>
+            <li><?= $data["contact"]["content"]["linkedin"] ?>
                 <ul>
-                    <li><a href="https://www.linkedin.com/in/gauthier-defrance/">LinkedIn Gauthier</a></li>
-                    <li><a href="https://www.linkedin.com/in/thomas-hornung-365ab8381/">LinkedIn Thomas</a></li>
-                    <li><a href="#linkedin">LinkedIn Haohan</a></li>
+                    <li><?= $data["contact"]["content"]["linkedin1"] ?></li>
+                    <li><?= $data["contact"]["content"]["linkedin2"] ?></li>
+                    <li><?= $data["contact"]["content"]["linkedin3"] ?></li>
                 </ul></li>
         </ul>
     </section>
@@ -31,6 +31,6 @@
 
 </main>
 
-<?= view("partial/footer") ?>
+<?= view("partial/footer", $data) ?>
 </body>
 </html>
