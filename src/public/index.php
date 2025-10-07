@@ -28,6 +28,7 @@ $config = require __DIR__ . '/../config/config.php';
 require __DIR__ . '/../App/Controllers/MainController.php';
 require __DIR__ . '/../App/Controllers/AccountController.php';
 require __DIR__ . '/../App/Controllers/SearchController.php';
+require __DIR__ . '/../App/Controllers/TechController.php';
 
 /**
  * Routes
@@ -46,7 +47,7 @@ use Core\Router;
 
 
 //On charge la langue sauvegardé en cookie
-$langCode = $_COOKIE['lang'] ?? 'fr';
+$langCode = $_COOKIE['lang'] ?? null;
 Lang::init($langCode);
 
 Router::dispatch();

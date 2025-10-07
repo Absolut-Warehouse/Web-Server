@@ -1,0 +1,100 @@
+/* tech.css */
+
+/* Reset minimal */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-content.tech-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tech-intro h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.tech-intro p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.card small {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.card.wide {
+    grid-column: span 2;
+}
+
+.small-list {
+    list-style: none;
+}
+
+.small-list li {
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 0.3rem;
+}
+
+.small-list li.muted {
+    color: #aaa;
+    font-style: italic;
+}
+
+.tech-note {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.tech-note p.muted {
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .card.wide {
+        grid-column: span 1;
+    }
+}

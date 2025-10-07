@@ -79,6 +79,33 @@ if (!function_exists('redirect')) {
     }
 }
 
+if (!function_exists('redirect_back')) {
+    /**
+     * Redirige l'utilisateur vers la page précédente.
+     * Utilise la fonction redirect() déjà existante.
+     *
+     * @param string $default URL de secours si aucun referer n'est trouvé
+     */
+    function redirect_back(string $default = '/'): void
+    {
+        $previous = $_SERVER['HTTP_REFERER'] ?? $default;
+
+        // Sécurité : on s'assure que la redirection reste interne
+        if (!empty($previous) && filter_var($previous, FILTER_VALIDATE_URL)) {
+            $baseHost = parse_url($_SERVER['HTTP_HOST'], PHP_URL_HOST);
+            $refHost = parse_url($previous, PHP_URL_HOST);
+
+            if ($refHost !== null && $refHost !== $baseHost) {
+                $previous = $default;
+            }
+        }
+
+        redirect($previous);
+    }
+}
+
+
+
 
 if (!function_exists('now')) {
     function now(string $format = 'Y-m-d H:i:s'): string {
@@ -96,6 +123,39 @@ if (!function_exists('time_ago')) {
         if ($diff < 24) return "$diff h ago";
         $diff = round($diff / 24);
         return "$diff days ago";
+    }
+}
+
+if (!function_exists('data_builder')) {
+    /**
+     * Combine plusieurs tableaux en un seul grand tableau associatif.
+     *
+     * Exemple :
+     * data_builder(['a' => 1], ['b' => 2], ['c' => 3]);
+     * => ['data_1' => [...], 'data_2' => [...], 'data_3' => [...]]
+     *
+     * Si tu veux des clés personnalisées :
+     * data_builder(['data' => [...], 'language' => [...]]);
+     *
+     * @param array ...$arrays Liste de tableaux à combiner
+     * @return array
+     */
+    function data_builder(array ...$arrays): array
+    {
+        $result = [];
+
+        foreach ($arrays as $index => $arr) {
+            // Si la clé est déjà bien nommée (par ex. ['data' => [...]]), on garde le nom
+            if (count($arr) === 1 && array_keys($arr) === [array_key_first($arr)]) {
+                $key = array_key_first($arr);
+                $result[$key] = $arr[$key];
+            } else {
+                // Sinon, on génère une clé générique (data_1, data_2, ...)
+                $result['data_' . ($index + 1)] = $arr;
+            }
+        }
+
+        return $result;
     }
 }
 

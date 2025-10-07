@@ -17,13 +17,14 @@ use Core\Router;
 use App\Controllers\MainController;
 use App\Controllers\AccountController;
 use App\Controllers\SearchController;
+use App\Controllers\TechController;
 
 Router::get('/', [MainController::class, 'index']);
 Router::get('/FAQ', [MainController::class, 'faq']);
 Router::get('/team', [MainController::class, 'team']);
 Router::get('/mission', [MainController::class, 'mission']);
 Router::get('/contact', [MainController::class, 'contact']);
-Router::get('/technic', [MainController::class, 'index']);
+Router::get('/tech', [TechController::class, 'index']);
 
 Router::get('/search', [SearchController::class, 'search']);
 

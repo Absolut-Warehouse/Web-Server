@@ -11,38 +11,38 @@
 
 <main>
     <section class="main-content">
-        <h2><?= $data["FAQ"]["content"]["block-1"]["title"] ?></h2>
-        <p><?= $data["FAQ"]["content"]["block-1"]["text"] ?></p>
+        <h2><?= $data['lang']["FAQ"]["content"]["block-1"]["title"] ?></h2>
+        <p><?= $data['lang']["FAQ"]["content"]["block-1"]["text"] ?></p>
     </section>
 
     <section class="main-content">
-        <h2><?= $data["FAQ"]["content"]["block-2"]["title"] ?></h2>
-        <p><?= $data["FAQ"]["content"]["block-2"]["text"] ?></p>
+        <h2><?= $data['lang']["FAQ"]["content"]["block-2"]["title"] ?></h2>
+        <p><?= $data['lang']["FAQ"]["content"]["block-2"]["text"] ?></p>
     </section>
 
     <section class="main-content">
-        <h2><?= $data["FAQ"]["content"]["block-3"]["title"] ?></h2>
-        <p><?= $data["FAQ"]["content"]["block-3"]["text"] ?></p>
+        <h2><?= $data['lang']["FAQ"]["content"]["block-3"]["title"] ?></h2>
+        <p><?= $data['lang']["FAQ"]["content"]["block-3"]["text"] ?></p>
     </section>
 
     <section class="main-content">
-        <h2><?= $data["FAQ"]["content"]["block-4"]["title"] ?></h2>
-        <p><?= $data["FAQ"]["content"]["block-4"]["text"] ?></p>
+        <h2><?= $data['lang']["FAQ"]["content"]["block-4"]["title"] ?></h2>
+        <p><?= $data['lang']["FAQ"]["content"]["block-4"]["text"] ?></p>
     </section>
 
     <section class="main-content">
-        <h2><?= $data["FAQ"]["content"]["block-5"]["title"] ?></h2>
-        <p><?= $data["FAQ"]["content"]["block-5"]["text"] ?></p>
+        <h2><?= $data['lang']["FAQ"]["content"]["block-5"]["title"] ?></h2>
+        <p><?= $data['lang']["FAQ"]["content"]["block-5"]["text"] ?></p>
     </section>
 
     <section class="main-content">
-        <h2><?= $data["FAQ"]["content"]["block-6"]["title"] ?></h2>
-        <p><?= $data["FAQ"]["content"]["block-6"]["text"] ?></p>
+        <h2><?= $data['lang']["FAQ"]["content"]["block-6"]["title"] ?></h2>
+        <p><?= $data['lang']["FAQ"]["content"]["block-6"]["text"] ?></p>
     </section>
 
     <section class="main-content">
-        <h2><?= $data["FAQ"]["content"]["block-7"]["title"] ?></h2>
-        <p><?= $data["FAQ"]["content"]["block-7"]["text"] ?></p>
+        <h2><?= $data['lang']["FAQ"]["content"]["block-7"]["title"] ?></h2>
+        <p><?= $data['lang']["FAQ"]["content"]["block-7"]["text"] ?></p>
     </section>
 </main>
 

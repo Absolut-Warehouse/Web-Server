@@ -2,16 +2,22 @@
 
 namespace App\Controllers;
 
+use Core\Lang;
+
 class AccountController
 {
     public function signin() {
-        $lang = include __DIR__ . "/../../lang/fr.php";
-        return view('pages/signin', $lang);
+        $lang = Lang::get();
+        $content = [];
+        $data =  ["lang" => $lang, "content" => $content];
+        return view('pages/signin', $data);
     }
 
     public function signup() {
-        $lang = include __DIR__ . "/../../lang/fr.php";
-        return view('pages/signup', $lang);
+        $lang = Lang::get();
+        $content = [];
+        $data =  ["lang" => $lang, "content" => $content];
+        return view('pages/signup', $data);
     }
 
     public function home(){

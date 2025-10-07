@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Core\Lang;
+
 class SearchController
 {
     public function search() {
@@ -10,7 +12,10 @@ class SearchController
 
         if (filter_var($orderId, FILTER_VALIDATE_INT) === false || strlen($orderId)==0 ) {
             // Valeur invalide, renvoyer une erreur ou rediriger
-            return view("errors/error", ["error_code" => 404, "message" => "Numéro de commande invalide."]);
+            $lang = Lang::get();
+            $content = ["error_code" => 404, "message" => "Numéro de commande invalide."];
+            $data =  ["lang" => $lang, "content" => $content];
+            return view("errors/error", $data);
         }
 
         //Faire les appels DB pour les informations
@@ -27,8 +32,9 @@ class SearchController
         if ($orderId) {
             // Par exemple : chercher la commande en base
             // $order = $this->orderModel->findById($orderId);
-            $lang = include __DIR__ . "/../../lang/fr.php";
-            return view('pages/search', $commande);
+            $lang = Lang::get();
+            $data =  ["lang" => $lang, "content" => $commande];
+            return view('pages/search', ["lang" => $lang, "data" => $data]);
         }
         else {
             redirect('/');

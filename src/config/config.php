@@ -16,7 +16,7 @@ return [
      * Paramètres de langue
      */
     "language_info" => [
-        "installed_languages" => ["fr", "en",],
+        "installed_languages" => ["fr", "en", "es", "ch", "de"],
         "default_language" => "fr",
     ],
 

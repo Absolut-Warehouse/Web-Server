@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 
-    <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
+    <title><?= htmlspecialchars($title ?? 'Orange Box — '. $data["lang"]['team']['title']) ?></title>
     <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('/css/team.css') ?>">
 
@@ -14,24 +14,16 @@
 <main>
 
     <section class="main-content team-section">
-        <h2>Notre équipe</h2>
-        <p>Notre équipe est composée de trois personnes pour ce projet fictif. Nous sommes tous étudiants en 3ème année à la faculté de Cergy Pontoise.</p>
+        <h2><?= $data["lang"]['team']['content']['title'] ?? 'Notre équipe' ?></h2>
+        <p><?= $data["lang"]['team']['content']['description'] ?? 'Notre équipe est composée de trois personnes pour ce projet fictif. Nous sommes tous étudiants en 3ème année à la faculté de Cergy Pontoise.' ?></p>
 
         <div class="team-members">
-            <div class="team-member">
-                <h3>Thomas Hornung</h3>
-                <p>Main Mission :</p>
-            </div>
-
-            <div class="team-member">
-                <h3>Hoahan Yu</h3>
-                <p>Main Mission :</p>
-            </div>
-
-            <div class="team-member">
-                <h3>Gauthier Defrance</h3>
-                <p>Main Mission : Site web</p>
-            </div>
+            <?php foreach($data["lang"]['team']['content']['members'] ?? [] as $member): ?>
+                <div class="team-member">
+                    <h3><?= $member['name'] ?></h3>
+                    <p><?= $member['mission'] ?></p>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
 

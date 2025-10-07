@@ -2,36 +2,48 @@
 
 namespace App\Controllers;
 
+use Core\Lang;
+
 class MainController
 {
     public function index()
     {
         // Données à injecter dans la vue
-        $lang = include __DIR__ . "/../../lang/fr.php";
+        $lang = Lang::get();
+        $content = [];
+        $data =  ["lang" => $lang, "content" => $content];
 
         // Rendu de la vue (selon ta méthode)
-        return view('pages/home', $lang);
+        return view('pages/home', $data);
     }
 
     public function faq() {
-        $lang = include __DIR__ . "/../../lang/fr.php";
-        return view('pages/FAQ', $lang);
+        $lang = Lang::get();
+        $content = [];
+        $data =  ["lang" => $lang, "content" => $content];
+        return view('pages/FAQ', $data);
     }
 
 
     public function team() {
-        $lang = include __DIR__ . "/../../lang/fr.php";
-        return view('pages/team', $lang);
+        $lang = Lang::get();
+        $content = [];
+        $data =  ["lang" => $lang, "content" => $content];
+        return view('pages/team', $data);
     }
 
     public function mission() {
-        $lang = include __DIR__ . "/../../lang/fr.php";
-        return view('pages/mission', $lang);
+        $lang = Lang::get();
+        $content = [];
+        $data =  ["lang" => $lang, "content" => $content];
+        return view('pages/mission', $data);
     }
 
     public function contact() {
-        $lang = include __DIR__ . "/../../lang/fr.php";
-        return view('pages/contact', $lang);
+        $lang = Lang::get();
+        $content = [];
+        $data =  ["lang" => $lang, "content" => $content];
+        return view('pages/contact', $data);
     }
 
 }

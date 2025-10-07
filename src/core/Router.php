@@ -46,7 +46,10 @@ class Router
 
         if (!$callback) {
             http_response_code(404);
-            echo view("errors/error", ["error_code" => 404, "message" => "Page introuvable."]);
+            $lang = Lang::get();
+            $content = ["error_code" => 404, "message" => "Page introuvable."];
+            $data = ['lang' => $lang, 'content' => $content];
+            echo view("errors/error", $data);
             return;
         }
 

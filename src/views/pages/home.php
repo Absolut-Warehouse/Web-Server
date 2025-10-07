@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <title><?= htmlspecialchars($title ?? 'Orange Box — '. $data["home"]["title"]) ?></title>
+    <title><?= htmlspecialchars($title ?? 'Orange Box — '. $data['lang']["home"]["title"]) ?></title>
     <?= view("partial/common_head", $data) ?>
 
 </head>
@@ -12,30 +12,30 @@
 <main>
 
     <section class="main-content">
-        <h2><?= $data["home"]["content"]["package"]["title"] ?></h2>
-        <p><?= $data["home"]["content"]["package"]["text"] ?></p>
+        <h2><?= $data['lang']["home"]["content"]["package"]["title"] ?></h2>
+        <p><?= $data['lang']["home"]["content"]["package"]["text"] ?></p>
         <form action="/search" method="GET">
-            <input type="text" name="order" placeholder="<?= $data["home"]["content"]["package"]["form_placeholder"] ?>" required>
-            <button type="submit"><?= $data["home"]["content"]["package"]["form_button"] ?></button>
+            <input type="text" name="order" placeholder="<?= $data['lang']["home"]["content"]["package"]["form_placeholder"] ?>" required>
+            <button type="submit"><?= $data['lang']["home"]["content"]["package"]["form_button"] ?></button>
         </form>
     </section>
 
 
     <section class="main-content">
-        <h2><?= $data["home"]["content"]["security"]["title"] ?></h2>
-        <p><?= $data["home"]["content"]["security"]["text"] ?></p>
+        <h2><?= $data['lang']["home"]["content"]["security"]["title"] ?></h2>
+        <p><?= $data['lang']["home"]["content"]["security"]["text"] ?></p>
         <img src="<?= base_url('/resources/entrepot.png') ?>"
-             alt="<?= $data["home"]["content"]["security"]["alt_img"] ?>">
+             alt="<?= $data['lang']["home"]["content"]["security"]["alt_img"] ?>">
 
     </section>
 
 
     <section class="main-content contact">
-        <h2><?= $data["home"]["content"]["contact"]["title"] ?></h2>
+        <h2><?= $data['lang']["home"]["content"]["contact"]["title"] ?></h2>
 
         <div class="contact-info">
-            <p><?= $data["home"]["content"]["contact"]["text_address"] ?></p>
-            <p><?= $data["home"]["content"]["contact"]["text_phone"] ?></p>
+            <p><?= $data['lang']["home"]["content"]["contact"]["text_address"] ?></p>
+            <p><?= $data['lang']["home"]["content"]["contact"]["text_phone"] ?></p>
         </div>
 
         <div class="map">
