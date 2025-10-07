@@ -1,7 +1,14 @@
+<?php
+// inclure le fichier de config
+$config = include __DIR__ . '/../../config/config.php'; // chemin vers ton fichier de config
+
+// maintenant $config['app_info'] est disponible
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
-    <title><?= htmlspecialchars($title ?? 'Orange Box — '. $data['lang']["home"]["title"]) ?></title>
+    <title><?= htmlspecialchars($title ??  $config['app_info']['company_name'].' —  '. $data['lang']["home"]["title"]) ?></title>
     <?= view("partial/common_head", $data) ?>
 
 </head>
