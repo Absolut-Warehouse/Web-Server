@@ -4,3 +4,4 @@
 <link rel="stylesheet" href="<?= base_url('/css/style.css') ?>">
 <title><?= htmlspecialchars(COMPANY_NAME ." - ". $data["lang"]['team']['title']) ?></title>
 <script src="https://kit.fontawesome.com/39e26908ee.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" />
