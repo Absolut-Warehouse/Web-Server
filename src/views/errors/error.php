@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <title><?= htmlspecialchars($title ?? 'Orange Box — ' . $lang['error']['title']) ?></title>
     <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('css/error.css') ?>">
 </head>

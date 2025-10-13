@@ -1,8 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="<?= base_url('/css/tech.css') ?>">
-    <title><?= htmlspecialchars($title ?? 'Orange Box — ' . ($data["lang"]['tech']['title'] ?? 'Technique')) ?></title>
+    <link rel="stylesheet" href="<?= base_url('/css/tech.css') ?>"></link>
     <?= view("partial/common_head", $data) ?>
 </head>
 <body>

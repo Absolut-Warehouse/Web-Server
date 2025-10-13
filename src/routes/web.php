@@ -18,6 +18,7 @@ use App\Controllers\MainController;
 use App\Controllers\AccountController;
 use App\Controllers\SearchController;
 use App\Controllers\TechController;
+use App\Controllers\LangController;
 
 Router::get('/', [MainController::class, 'index']);
 Router::get('/FAQ', [MainController::class, 'faq']);
@@ -31,3 +32,6 @@ Router::get('/search', [SearchController::class, 'search']);
 Router::get('/signup', [AccountController::class, 'signup']);
 Router::get('/signin', [AccountController::class, 'signin']);
 Router::get('/account', [AccountController::class, 'home']);
+
+
+Router::get('/lang', [LangController::class, 'setlang']);

@@ -1,7 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title><?= htmlspecialchars($title ?? 'Orange Box — Accueil') ?></title>
     <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('/css/style.css') ?>">
 </head>

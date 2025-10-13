@@ -5,10 +5,9 @@ $config = include __DIR__ . '/../../config/config.php'; // chemin vers ton fichi
 // maintenant $config['app_info'] est disponible
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title><?= htmlspecialchars($title ??  $config['app_info']['company_name'].' —  '. $data['lang']["home"]["title"]) ?></title>
     <?= view("partial/common_head", $data) ?>
 
 </head>

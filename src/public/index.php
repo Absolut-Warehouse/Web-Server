@@ -17,7 +17,9 @@ require __DIR__ . '/../core/Lang.php'; //Module de gestion des langues
  * La config, là où se trouvent toutes les données sensibles
 */
 $config = require __DIR__ . '/../config/config.php';
-
+define('COMPANY_NAME', $config['app_info']['company_name']);
+define('WEBSITE_VERSION', $config['app_info']['app_version']);
+define('AUTHORS', $config['app_info']['app_author']);
 
 /**
  * Controleurs
@@ -29,6 +31,8 @@ require __DIR__ . '/../App/Controllers/MainController.php';
 require __DIR__ . '/../App/Controllers/AccountController.php';
 require __DIR__ . '/../App/Controllers/SearchController.php';
 require __DIR__ . '/../App/Controllers/TechController.php';
+require __DIR__ . '/../App/Controllers/LangController.php';
+
 
 /**
  * Routes
