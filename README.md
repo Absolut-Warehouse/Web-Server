@@ -102,7 +102,7 @@ L’ajout d’une nouvelle langue est très simple :
 1. **Cloner le projet**
    ```bash
    git clone https://github.com/Absolut-Warehouse/Web-Server.git
-   cd mon-projet-php
+   cd Web-Server
    ```
 
 2. **Démarrer le serveur local**
