@@ -15,7 +15,7 @@ class Lang
     public static function init(?string $langCode = null): void
     {
         // Charger la configuration
-        $configPath = __DIR__ . '/../App/Config/Config.php';
+        $configPath = __DIR__ . '/../App/Config/config.php';
         if (!file_exists($configPath)) {
             throw new \Exception("Fichier de configuration introuvable : $configPath");
         }

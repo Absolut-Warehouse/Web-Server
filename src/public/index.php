@@ -16,7 +16,7 @@ require __DIR__ . '/../Core/Lang.php'; //Module de gestion des langues
 /**
  * La Config, là où se trouvent toutes les données sensibles
 */
-$config = require __DIR__ . '/../App/Config/Config.php';
+$config = require __DIR__ . '/../App/Config/config.php';
 define('COMPANY_NAME', $config['app_info']['company_name']);
 define('WEBSITE_VERSION', $config['app_info']['app_version']);
 define('AUTHORS', $config['app_info']['app_author']);
