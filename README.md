@@ -151,9 +151,3 @@ mon-projet-php/
 ```
 
 ---
-
-## 👨‍💻 Auteur
-
-- **Nom :** *[Ton Nom]*  
-- **Rôle :** Développeur full-stack PHP  
-- **Projet :** Framework MVC maison – Site de suivi de colis multilingue  
