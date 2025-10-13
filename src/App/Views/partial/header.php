@@ -1,8 +1,8 @@
 <?php
-// Charger la configuration (assurer que tu as bien inclus le fichier config.php)
-$config = require __DIR__ . '/../../config/config.php'; // __DIR__ permet de récupérer le chemin du répertoire courant
+// Charger la configuration (assurer que tu as bien inclus le fichier Config.php)
+$config = require __DIR__ . '/../../Config/config.php'; // __DIR__ permet de récupérer le chemin du répertoire courant
 
-// Récupérer le nom de l'entreprise depuis la config, avec une valeur par défaut si non définie
+// Récupérer le nom de l'entreprise depuis la Config, avec une valeur par défaut si non définie
 $companyName = $config['app_info']['company_name'];
 ?>
 

@@ -15,7 +15,7 @@ class Lang
     public static function init(?string $langCode = null): void
     {
         // Charger la configuration
-        $configPath = __DIR__ . '/../config/config.php';
+        $configPath = __DIR__ . '/../App/Config/Config.php';
         if (!file_exists($configPath)) {
             throw new \Exception("Fichier de configuration introuvable : $configPath");
         }
@@ -27,7 +27,7 @@ class Lang
         // Stocker pour debug / introspection
         self::$config = $languageInfo;
 
-        // Valeurs par défaut si config incomplète
+        // Valeurs par défaut si Config incomplète
         $supported = $languageInfo['installed_languages'] ?? ['fr'];
         $default = $languageInfo['default_language'] ?? 'fr';
 
@@ -43,13 +43,13 @@ class Lang
         }
 
         // Construire le chemin du fichier de langue
-        $langPath = __DIR__ . "/../lang/{$langCode}.php";
+        $langPath = __DIR__ . "/../App/Lang/{$langCode}.php";
 
         // Si le fichier demandé n'existe pas, essayer la langue par défaut (si différente)
         if (!file_exists($langPath)) {
             // tenter fallback sur $default si nécessaire
             if ($langCode !== $default) {
-                $fallbackPath = __DIR__ . "/../lang/{$default}.php";
+                $fallbackPath = __DIR__ . "/../App/Lang/{$default}.php";
                 if (file_exists($fallbackPath)) {
                     $langPath = $fallbackPath;
                     $langCode = $default;
@@ -69,7 +69,7 @@ class Lang
 
         self::$lang = $translations;
 
-        // Si debug activé dans la config globale, afficher quelle langue a été chargée
+        // Si debug activé dans la Config globale, afficher quelle langue a été chargée
         $appDebug = $fullConfig['app_info']['debug'] ?? false;
         if ($appDebug) {
             // pas d'echo massif en prod, seulement en debug

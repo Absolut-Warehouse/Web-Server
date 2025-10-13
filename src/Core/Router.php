@@ -12,7 +12,7 @@ class Router
     private static array $routes = [];
 
     /**
-     * Fonction servant à créer des "routes" statiques associé à un URL et utilisant la méthode GET
+     * Fonction servant à créer des "Routes" statiques associé à un URL et utilisant la méthode GET
      * @param string $uri
      * @param callable $callback
      * @return void
@@ -23,7 +23,7 @@ class Router
     }
 
     /**
-     * Fonction servant à créer des "routes" statiques associé à un URL et utilisant la méthode POST
+     * Fonction servant à créer des "Routes" statiques associé à un URL et utilisant la méthode POST
      * @param string $uri
      * @param callable $callback
      * @return void

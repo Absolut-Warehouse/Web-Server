@@ -6,17 +6,17 @@
  * J'ai refait une version superlégère de Symfony,
  * un modèle MCV très très rudimentaire
  */
-require __DIR__ . '/../core/Router.php';//Module de décisions et gestions des controllers
-require __DIR__ . '/../core/View.php'; //Module pour le chargement des views
-require __DIR__ . '/../core/helpers.php'; //Module avec des commandes utiles
-require __DIR__ . '/../core/Lang.php'; //Module de gestion des langues
+require __DIR__ . '/../Core/Router.php';//Module de décisions et gestions des controllers
+require __DIR__ . '/../Core/View.php'; //Module pour le chargement des Views
+require __DIR__ . '/../Core/helpers.php'; //Module avec des commandes utiles
+require __DIR__ . '/../Core/Lang.php'; //Module de gestion des langues
 
 
 
 /**
- * La config, là où se trouvent toutes les données sensibles
+ * La Config, là où se trouvent toutes les données sensibles
 */
-$config = require __DIR__ . '/../config/config.php';
+$config = require __DIR__ . '/../App/Config/Config.php';
 define('COMPANY_NAME', $config['app_info']['company_name']);
 define('WEBSITE_VERSION', $config['app_info']['app_version']);
 define('AUTHORS', $config['app_info']['app_author']);
@@ -38,7 +38,7 @@ require __DIR__ . '/../App/Controllers/LangController.php';
  * Routes
  * Les listes des chemins existants
  */
-require __DIR__ . '/../routes/web.php';
+require __DIR__ . '/../App/Routes/web.php';
 
 
 use Core\Lang;

@@ -1,8 +1,8 @@
 <?php
-// inclure le fichier de config
-$config = include __DIR__ . '/../../config/config.php'; // chemin vers ton fichier de config
+// inclure le fichier de Config
+$config = include __DIR__ . '/../../Config/config.php'; // chemin vers ton fichier de Config
 
-// maintenant $config['app_info'] est disponible
+// maintenant $Config['app_info'] est disponible
 ?>
 
 <!DOCTYPE html>

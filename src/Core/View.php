@@ -6,7 +6,7 @@ class View
 {
     public static function make(string $view, array $data = [])
     {
-        $path = __DIR__ . '/../views/' . str_replace('.', '/', $view) . '.php';
+        $path = __DIR__ . '/../App/Views/' . str_replace('.', '/', $view) . '.php';
 
         if (!file_exists($path)) {
             throw new \Exception("View [{$view}] not found at {$path}");
