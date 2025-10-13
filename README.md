@@ -105,17 +105,7 @@ L’ajout d’une nouvelle langue est très simple :
    cd mon-projet-php
    ```
 
-2. **Configurer la base de données**
-   - Crée une base de données :
-     ```sql
-     CREATE DATABASE suivi_colis CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-     ```
-   - Configure les accès dans le fichier :
-     ```
-     /App/Config/config.php
-     ```
-
-3. **Démarrer le serveur local**
+2. **Démarrer le serveur local**
    ```bash
    php -S localhost:8000 -t public
    ```
