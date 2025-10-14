@@ -10,6 +10,8 @@ require __DIR__ . '/../Core/Router.php';//Module de décisions et gestions des c
 require __DIR__ . '/../Core/View.php'; //Module pour le chargement des Views
 require __DIR__ . '/../Core/helpers.php'; //Module avec des commandes utiles
 require __DIR__ . '/../Core/Lang.php'; //Module de gestion des langues
+require __DIR__ . '/../Core/Database.php';//Module servant à la connexion à la DB pgsql
+require __DIR__ . '/../Core/Model.php';//Module servant aux opérations sur les tables de la DB
 
 
 
