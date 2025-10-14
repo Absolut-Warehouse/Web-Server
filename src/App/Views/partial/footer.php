@@ -30,7 +30,7 @@
     </div>
 
     <div class="container">
-        <small>&copy; <?= date('Y') ?> <?= htmlspecialchars($companyName ?? 'LivraRapide') ?> — <?= $data['lang']["footer"]["right_reserved"] ?></small>
+        <small>&copy; <?= date('Y') ?> <?= COMPANY_NAME ?> — <?= $data['lang']["footer"]["right_reserved"] ?></small>
     </div>
 
 </footer>

@@ -20,6 +20,7 @@ $config = require __DIR__ . '/../App/Config/config.php';
 define('COMPANY_NAME', $config['app_info']['company_name']);
 define('WEBSITE_VERSION', $config['app_info']['app_version']);
 define('AUTHORS', $config['app_info']['app_author']);
+define('BASE_URL', $config['app_info']['base_url']);
 
 /**
  * Controleurs

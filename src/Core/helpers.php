@@ -81,26 +81,21 @@ if (!function_exists('redirect')) {
 
 if (!function_exists('redirect_back')) {
     /**
-     * Redirige l'utilisateur vers la page précédente.
-     * Utilise la fonction redirect() déjà existante.
+     * Redirige vers la page précédente (ou $default).
      *
-     * @param string $default URL de secours si aucun referer n'est trouvé
+     * @param string $default URL de secours si aucun referer n'est trouvé ou si l'hôte est externe
      */
-    function redirect_back(string $default = '/'): void
+    function redirect_back()
     {
-        $previous = $_SERVER['HTTP_REFERER'] ?? $default;
-
-        // Sécurité : on s'assure que la redirection reste interne
-        if (!empty($previous) && filter_var($previous, FILTER_VALIDATE_URL)) {
-            $baseHost = parse_url($_SERVER['HTTP_HOST'], PHP_URL_HOST);
-            $refHost = parse_url($previous, PHP_URL_HOST);
-
-            if ($refHost !== null && $refHost !== $baseHost) {
-                $previous = $default;
-            }
+        if(header("Location: {$_SERVER['HTTP_REFERER']}")==BASE_URL){
+            //redirect('/');
+            return $_SERVER['HTTP_REFERER'];
         }
-
-        redirect($previous);
+        else {
+            return $_SERVER['HTTP_REFERER'];
+            //header("Location: {$_SERVER['HTTP_REFERER']}");
+        }
+        exit;
     }
 }
 

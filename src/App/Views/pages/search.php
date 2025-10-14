@@ -13,7 +13,7 @@
         <h2>
             <?= $data["lang"]['search']['title'] ?> n° <?= htmlspecialchars($order['id'] ?? 'Error') ?>
         </h2>
-        <img src="<?= base_url('resources/cardbox.png') ?>" alt="CardBox Image">
+        <img src="<?= '/resources/cardbox.png' ?>" alt="CardBox Image">
     </div>
 
     <?php if (!empty($content)) : ?>
