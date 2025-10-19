@@ -95,7 +95,6 @@ if (!function_exists('redirect_back')) {
             return $_SERVER['HTTP_REFERER'];
             //header("Location: {$_SERVER['HTTP_REFERER']}");
         }
-        exit;
     }
 }
 
@@ -154,3 +153,61 @@ if (!function_exists('data_builder')) {
     }
 }
 
+
+if (!function_exists('flash')) {
+    /**
+     * Définit ou récupère un flash message
+     * @param string $key Clé du message (ex: 'error', 'success')
+     * @param string|null $message Message à stocker, null pour récupérer
+     * @return void|string|null
+     */
+    function flash(string $key, ?string $message = null)
+    {
+        if (!session_id()) {
+            session_start();
+        }
+
+        if ($message !== null) {
+            // Stocke le message dans la session
+            $_SESSION['flash_messages'][$key] = $message;
+            return null;
+        }
+
+        // Récupère le message et le supprime de la session
+        if (isset($_SESSION['flash_messages'][$key])) {
+            $msg = $_SESSION['flash_messages'][$key];
+            unset($_SESSION['flash_messages'][$key]);
+            return $msg;
+        }
+
+        return null;
+    }
+}
+
+
+if (!function_exists('has_flash')) {
+    /**
+     * Vérifie si un flash message existe
+     */
+    function has_flash(string $key): bool
+    {
+        if (!session_id()) {
+            session_start();
+        }
+
+        return !empty($_SESSION['flash_messages'][$key]);
+    }
+}
+
+if (!function_exists('generateUuid32')) {
+    function generateUuid32(): string
+    {
+        $data = random_bytes(16);
+
+        // version 4 UUID
+        $data[6] = chr((ord($data[6]) & 0x0f) | 0x40);
+        $data[8] = chr((ord($data[8]) & 0x3f) | 0x80);
+
+        return bin2hex($data); // 32 caractères hexadécimaux
+    }
+}

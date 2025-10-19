@@ -245,7 +245,8 @@ return [
         "content" => [
             "code" => "???",
             "message" => "Error desconocido.",
-            "back_home" => "Volver al inicio"
+            "back_home" => "Volver al inicio",
+            "not_correct_search" => "Número de pedido inválido.",
         ]
     ],
 

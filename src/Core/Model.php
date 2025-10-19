@@ -8,6 +8,7 @@ abstract class Model
     protected string $table;
     protected array $fillable = [];
     protected PDO $db;
+    protected string $primaryKey = 'id';
 
     // Query builder state
     protected array $wheres = [];
@@ -196,7 +197,9 @@ abstract class Model
 
     public function find(int $id): ?array
     {
-        return $this->where('id', $id)->first();
+        $primaryKey = $this->primaryKey ?? 'id';
+        $result = $this->where($primaryKey, $id)->first();
+        return $result ?: null;
     }
 
     /**
@@ -213,61 +216,78 @@ abstract class Model
         }
 
         $cols = array_keys($data);
-        $placeholders = array_map(fn($c, $i) => ':p' . $i, $cols, array_keys($cols));
-        $quotedCols = array_map(fn($c) => $this->quoteIdentifier($c), $cols);
+        $placeholders = [];
+        $values = array_values($data);
+
+        foreach ($cols as $i => $col) {
+            $placeholders[] = ':p' . $i;
+        }
 
         $sql = sprintf(
-            'INSERT INTO %s (%s) VALUES (%s) RETURNING id',
+            'INSERT INTO %s (%s) VALUES (%s) RETURNING %s',
             $this->quoteIdentifier($this->table),
-            implode(', ', $quotedCols),
-            implode(', ', $placeholders)
+            implode(', ', array_map([$this, 'quoteIdentifier'], $cols)),
+            implode(', ', $placeholders),
+            $this->quoteIdentifier($this->primaryKey)
         );
 
         $stmt = $this->db->prepare($sql);
-        $i = 0;
-        foreach ($data as $v) {
-            $stmt->bindValue(':p' . $i, $v);
-            $i++;
+
+        // binder en utilisant $placeholders et $values
+        foreach ($placeholders as $i => $placeholder) {
+            $stmt->bindValue($placeholder, $values[$i]);
         }
 
         $stmt->execute();
-        $id = $stmt->fetchColumn();
-        return (int)$id;
+        return (int)$stmt->fetchColumn();
     }
+
 
     /**
      * update par id (utilise $fillable)
      */
-    public function update(int $id, array $data): bool
+    public function update(int $id, array $data, ?string $primaryKey = null): bool
     {
+        // Si aucun nom de clé primaire n’est fourni, on utilise celle du modèle (ou 'id' par défaut)
+        $primaryKey = $primaryKey ?? ($this->primaryKey ?? 'id');
+
+        // Filtrer uniquement les colonnes autorisées
         $data = array_intersect_key($data, array_flip($this->fillable));
         if (empty($data)) {
             return false;
         }
 
+        // Construire la requête SQL dynamiquement
         $sets = [];
-        $i = 0;
         $params = [];
+        $i = 0;
+
         foreach ($data as $col => $val) {
-            $param = ':u' . $i;
+            $param = ':u' . $i++;
             $sets[] = $this->quoteIdentifier($col) . ' = ' . $param;
             $params[$param] = $val;
-            $i++;
         }
 
         $sql = sprintf(
-            'UPDATE %s SET %s WHERE id = :id',
+            'UPDATE %s SET %s WHERE %s = :id',
             $this->quoteIdentifier($this->table),
-            implode(', ', $sets)
+            implode(', ', $sets),
+            $this->quoteIdentifier($primaryKey)
         );
 
         $stmt = $this->db->prepare($sql);
+
+        // Lier toutes les valeurs
         foreach ($params as $p => $v) {
             $stmt->bindValue($p, $v);
         }
+
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
         return $stmt->execute();
     }
+
+
 
     /**
      * Supprime les lignes correspondant à la requête courante
@@ -300,4 +320,75 @@ abstract class Model
     public function beginTransaction(): bool { return $this->db->beginTransaction(); }
     public function commit(): bool { return $this->db->commit(); }
     public function rollBack(): bool { return $this->db->rollBack(); }
+
+    public function exists(): bool
+    {
+        $sql = 'SELECT 1 FROM ' . $this->quoteIdentifier($this->table);
+
+        if (!empty($this->wheres)) {
+            $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
+        }
+
+        $sql .= ' LIMIT 1';
+
+        $stmt = $this->db->prepare($sql);
+        foreach ($this->bindings as $param => $val) {
+            $stmt->bindValue($param, $val);
+        }
+        $stmt->execute();
+        $this->resetQuery();
+        return $stmt->fetch() !== false;
+    }
+
+    public function count(): int
+    {
+        $sql = 'SELECT COUNT(*) FROM ' . $this->quoteIdentifier($this->table);
+
+        if (!empty($this->wheres)) {
+            $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
+        }
+
+        $stmt = $this->db->prepare($sql);
+        foreach ($this->bindings as $param => $val) {
+            $stmt->bindValue($param, $val);
+        }
+        $stmt->execute();
+        $this->resetQuery();
+        return (int)$stmt->fetchColumn();
+    }
+
+
+    public function hasMany(string $relatedModel, string $foreignKey, string $localKey = null): array
+    {
+        $localKey = $localKey ?? $this->primaryKey;
+        $relatedInstance = new $relatedModel();
+        return $relatedInstance->where($foreignKey, $this->$localKey)->get();
+    }
+
+    public function belongsTo(string $relatedClass, string $foreignKey, string $ownerKey = null): ?array
+    {
+        $ownerKey = $ownerKey ?? (new $relatedClass())->primaryKey;
+        $foreignId = $this->$foreignKey ?? null;
+        if ($foreignId === null) return null;
+        $related = new $relatedClass();
+        return $related->where($ownerKey, $foreignId)->first();
+    }
+
+    public function paginate(int $perPage = 10, int $page = 1): array
+    {
+        $offset = ($page - 1) * $perPage;
+        $this->limit($perPage)->offset($offset);
+        $data = $this->get();
+        $total = $this->count();
+
+        return [
+            'data' => $data,
+            'total' => $total,
+            'per_page' => $perPage,
+            'current_page' => $page,
+            'last_page' => ceil($total / $perPage),
+        ];
+    }
+
+
 }

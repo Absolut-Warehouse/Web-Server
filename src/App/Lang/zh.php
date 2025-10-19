@@ -241,7 +241,8 @@ return [
         "content" => [
             "code" => "???",
             "message" => "未知错误。",
-            "back_home" => "返回首页"
+            "back_home" => "返回首页",
+            "not_correct_search" => "订单号无效",
         ]
     ],
 

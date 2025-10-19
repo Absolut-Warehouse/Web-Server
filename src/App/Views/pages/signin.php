@@ -12,6 +12,12 @@
 
     <section class="register-form main-content">
         <h2><?= $data["lang"]['signin']['content']['title'] ?? 'Connexion' ?></h2>
+
+        <!-- Affichage des messages flash -->
+        <?php if ($msg = flash('error')): ?>
+            <div class="alert alert-error"><?= htmlspecialchars($msg) ?></div>
+        <?php endif; ?>
+
         <form action="/login" method="post">
             <div class="form-group">
                 <label for="login-email"><?= $data["lang"]['signin']['content']['email_label'] ?? 'Adresse e-mail' ?></label>

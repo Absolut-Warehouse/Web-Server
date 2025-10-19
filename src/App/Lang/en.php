@@ -246,7 +246,8 @@ return [
         "content" => [
             "code" => "???",
             "message" => "Unknown error.",
-            "back_home" => "Back to Home"
+            "back_home" => "Back to Home",
+            "not_correct_search" => "Invalid order number.",
         ]
     ],
 

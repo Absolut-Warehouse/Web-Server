@@ -261,4 +261,29 @@ button:hover:after {
 }
 
 
+/* Styles généraux pour les alertes */
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Erreur */
+.alert-error {
+    background-color: #ffe3e3; /* rouge clair */
+    color: #b20000;           /* texte rouge foncé */
+    border: 1px solid #f5c2c2;
+}
+
+/* Optionnel : icône d’erreur avant le texte */
+.alert-error::before {
+    content: "⚠️";
+    font-size: 1.2rem;
+}
 

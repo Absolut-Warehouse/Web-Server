@@ -1,50 +1,41 @@
 <?php
 
 namespace Core;
+use Core\Route;
 
-/**
- * Classe servant à rediriger les requêtes faites au serveur.
- * Si la ressource demandée existe dans le fichier web.php,
- * alors elle est renvoyé, sinon une erreur 404 est retournée.
- */
 class Router
 {
     private static array $routes = [];
 
-    /**
-     * Fonction servant à créer des "Routes" statiques associé à un URL et utilisant la méthode GET
-     * @param string $uri
-     * @param callable $callback
-     * @return void
-     */
-    public static function get(string $uri, $callback)
+    public static function get(string $uri, $callback): Route
     {
-        self::$routes['GET'][$uri] = $callback;
+        return self::addRoute('GET', $uri, $callback);
+    }
+
+    public static function post(string $uri, $callback): Route
+    {
+        return self::addRoute('POST', $uri, $callback);
+    }
+
+    private static function addRoute(string $method, string $uri, $callback): Route
+    {
+        $route = new Route($method, $uri, $callback);
+        self::$routes[$method][$uri] = $route;
+        return $route;
     }
 
     /**
-     * Fonction servant à créer des "Routes" statiques associé à un URL et utilisant la méthode POST
-     * @param string $uri
-     * @param callable $callback
-     * @return void
+     * @throws \Exception
      */
-    public static function post(string $uri, $callback)
-    {
-        self::$routes['POST'][$uri] = $callback;
-    }
-
-    /**
-     * À chaque tentative de connexion au serveur, cette requête est appelé.
-     * C'est elle qui décide qu'elle page sera chargé.
-     */
-    public static function dispatch()
+    public static function dispatch(): void
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
 
-        $callback = self::$routes[$method][$uri] ?? null;
+        /** @var Route|null $route */
+        $route = self::$routes[$method][$uri] ?? null;
 
-        if (!$callback) {
+        if (!$route) {
             http_response_code(404);
             $lang = Lang::get();
             $content = ["error_code" => 404, "message" => "Page introuvable."];
@@ -53,7 +44,14 @@ class Router
             return;
         }
 
-        //Si un controleur est associé
+        // Vérifie si la route nécessite une connexion
+        if ($route->needsLogin()) {
+            Auth::requireLogin();
+        }
+
+        $callback = $route->getCallback();
+
+        // Contrôleur classique
         if (is_array($callback)) {
             [$class, $methodName] = $callback;
 
@@ -71,6 +69,7 @@ class Router
             return;
         }
 
+        // Fonction anonyme ou callback simple
         echo call_user_func($callback);
     }
 }

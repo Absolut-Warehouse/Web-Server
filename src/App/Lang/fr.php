@@ -172,7 +172,7 @@ return [
             "password_label" => "Mot de passe",
             "password_placeholder" => "Votre mot de passe",
             "submit_button" => "Se connecter",
-            "signup_link" => "Pas de compte ?"
+            "signup_link" => "Pas de compte ?",
         ]
     ],
 
@@ -181,12 +181,15 @@ return [
         "meta_desc" => "Page d'inscription des utilisateurs",
         "content" => [
             "title" => "Inscription",
-            "name_label" => "Nom complet",
-            "name_placeholder" => "Votre nom",
+            "name_label" => "Votre nom",
+            "name_content" => "Votre nom",
+            "surname_label" => "Votre prénom",
+            "surname_content" => "Votre prénom",
             "email_label" => "Adresse e-mail",
             "email_placeholder" => "Entrez votre e-mail",
             "password_label" => "Mot de passe",
-            "password_placeholder" => "Créez un mot de passe",
+            "password_2_label" => "Répetez votre mot de passe",
+            "password_placeholder" => "Mot de passe",
             "submit_button" => "S'inscrire",
             "signin_link" => "Déjà un compte ?"
         ]
@@ -249,7 +252,13 @@ return [
         "content" => [
             "code" => "???",
             "message" => "Erreur inconnue.",
-            "back_home" => "Retour à l’accueil"
+            "back_home" => "Retour à l’accueil",
+            "not_correct_search" => "Numéro de commande invalide.",
+            "missing_fields" => "Tous les champs sont obligatoires.",
+            "bad_information" => "Email ou mot de passe incorrect.",
+            "already_used_mail" => "Cette email est déjà utilisé",
+            "password_too_short" => "Le mot de passe doit contenir au moins 6 caractères.",
+            "passwords_not_match" => "Les mots de passe ne correspondent pas.",
         ]
     ],
 

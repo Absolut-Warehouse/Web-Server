@@ -8,7 +8,7 @@ return [
         "app_author"   => "Hoahan Yu, Thomas Hornung, Gauthier Defrance",
         "environment"  => "production", // "development" | "staging" | "production"
         "timezone"     => "Europe/Paris",
-        "base_url"     => "https://gauthierdefrance.alwaysdata.net",
+        "base_url"     => "https://mywebsite.domain.tld",
         "debug"        => false // active ou désactive les messages d’erreur détaillés
     ],
 

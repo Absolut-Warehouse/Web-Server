@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <?= view("partial/common_head", $data) ?>
-    <link rel="stylesheet" href="<?= base_url('/css/style.css') ?>">
+
 </head>
 <body>
 

@@ -1,8 +1,11 @@
 <?php
-// Charger la configuration (assurer que tu as bien inclus le fichier Config.php)
-$config = require __DIR__ . '/../../Config/config.php'; // __DIR__ permet de récupérer le chemin du répertoire courant
+use Core\Auth;
 
-// Récupérer le nom de l'entreprise depuis la Config, avec une valeur par défaut si non définie
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$config = require BASE_PATH . '/App/Config/config.php';
 $companyName = $config['app_info']['company_name'];
 ?>
 
@@ -18,13 +21,31 @@ $companyName = $config['app_info']['company_name'];
             <nav class="nav">
                 <ul class="nav-menu">
                     <li class="dropdown">
-                        <a href="#signin">
-                            <i class="fa-solid fa-user"></i>
-                            <?= $data['lang']["header"]["myaccount"] ?></a>
-                        <div class="dropdown-content">
-                            <a href="/signup"><?= $data['lang']["header"]["signup"] ?></a>
-                            <a href="/signin"><?= $data['lang']["header"]["signin"] ?></a>
-                        </div>
+                        <?php if (Auth::check()):
+                            $user = Auth::user();
+                            ?>
+                            <a href="#account">
+                                <i class="fa-solid fa-user"></i>
+                                <?= $data['lang']["header"]["myaccount"] ?>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="/account"><?= $data['lang']["header"]["myaccount"] ?></a>
+
+                                <!-- Nouveau lien uniquement si connecté -->
+                                <a href="/orders"><?= $data['lang']["header"]["myorders"] ?? "Mes commandes" ?></a>
+
+                                <a href="/logout">Se déconnecter</a>
+                            </div>
+                        <?php else: ?>
+                            <a href="#signin">
+                                <i class="fa-solid fa-user"></i>
+                                <?= $data['lang']["header"]["myaccount"] ?>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="/signup"><?= $data['lang']["header"]["signup"] ?></a>
+                                <a href="/signin"><?= $data['lang']["header"]["signin"] ?></a>
+                            </div>
+                        <?php endif; ?>
                     </li>
                     <li class="dropdown">
                         <a href="#settings">

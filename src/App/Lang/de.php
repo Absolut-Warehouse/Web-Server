@@ -241,7 +241,8 @@ return [
         "content" => [
             "code" => "???",
             "message" => "Unbekannter Fehler.",
-            "back_home" => "Zurück zur Startseite"
+            "back_home" => "Zurück zur Startseite",
+            "not_correct_search" => "Ungültige Bestellnummer.",
         ]
     ],
 

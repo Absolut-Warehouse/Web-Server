@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Core
  * Le noyau du programme.
@@ -12,6 +11,21 @@ require __DIR__ . '/../Core/helpers.php'; //Module avec des commandes utiles
 require __DIR__ . '/../Core/Lang.php'; //Module de gestion des langues
 require __DIR__ . '/../Core/Database.php';//Module servant à la connexion à la DB pgsql
 require __DIR__ . '/../Core/Model.php';//Module servant aux opérations sur les tables de la DB
+require __DIR__ . '/../Core/Route.php';//
+require __DIR__ . '/../Core/Auth.php';//
+
+
+/**
+ * Models
+ */
+require __DIR__ . '/../App/Models/User.php';
+require __DIR__ . '/../App/Models/Container.php';
+require __DIR__ . '/../App/Models/Item.php';
+require __DIR__ . '/../App/Models/Address.php';
+require __DIR__ . '/../App/Models/Package.php';
+require __DIR__ . '/../App/Models/Order.php';
+require __DIR__ . '/../App/Models/UserActivity.php';
+require __DIR__ . '/../App/Models/Employee.php';
 
 
 
@@ -23,6 +37,7 @@ define('COMPANY_NAME', $config['app_info']['company_name']);
 define('WEBSITE_VERSION', $config['app_info']['app_version']);
 define('AUTHORS', $config['app_info']['app_author']);
 define('BASE_URL', $config['app_info']['base_url']);
+define('BASE_PATH', dirname(__DIR__, 1));
 
 /**
  * Controleurs
@@ -51,6 +66,16 @@ use Core\Router;
  * Cette page s'active à chaque fois qu'un utilisateur cherche à se connecter au site.
  * C'est depuis ici qu'on va décider quel page sera renvoyé.
  */
+
+
+
+if (!empty($config['security']['session_name'])) {
+    session_name($config['security']['session_name']);
+}
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 
 //On charge la langue sauvegardé en cookie
