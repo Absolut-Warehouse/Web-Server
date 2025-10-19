@@ -4,7 +4,6 @@ namespace App\Controllers;
 use Core\Router;
 use Core\Lang;
 
-
 class LangController
 {
     /**
@@ -14,6 +13,9 @@ class LangController
     {
         // Récupérer le code langue depuis la requête GET ou POST
         $langCode = $_GET['lang'] ?? null;
+
+        // Récupérer les traductions actuelles par défaut
+        $lang = Lang::get();
 
         if ($langCode) {
             $langCode = strtolower(trim($langCode));
@@ -31,20 +33,34 @@ class LangController
                     'samesite' => 'Lax'
                 ]);
 
-                // Recharger les traductions (optionnel ici)
+                // Recharger les traductions
                 Lang::init($langCode);
-                redirect_back();
-            } else {
                 $lang = Lang::get();
-                $content = ["error_code" => 404, "message" => "Not supported language."];
-                $data =  ["lang" => $lang, "content" => $content];
+
+                // Définir le titre de la page
+                $data = [
+                    "lang" => $lang,
+                    "page_title" => $lang['default_page']['title'] ?? 'Accueil'
+                ];
+
+                redirect_back(); // redirection vers la page précédente
+            } else {
+                $content = ["error_code" => 404, "message" => $lang['errors']['unsupported_language'] ?? "Not supported language."];
+                $data =  [
+                    "lang" => $lang,
+                    "content" => $content,
+                    "page_title" => $lang['errors']['title'] ?? "Erreur"
+                ];
                 return view("errors/error", $data);
             }
         }
 
-        $lang = Lang::get();
-        $content = ["error_code" => 404, "message" => "No lang given."];
-        $data =  ["lang" => $lang, "content" => $content];
+        $content = ["error_code" => 404, "message" => $lang['errors']['no_lang_given'] ?? "No lang given."];
+        $data =  [
+            "lang" => $lang,
+            "content" => $content,
+            "page_title" => $lang['errors']['title'] ?? "Erreur"
+        ];
         return view("errors/error", $data);
     }
 }

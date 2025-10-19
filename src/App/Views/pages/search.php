@@ -18,14 +18,14 @@
 
     <?php if (!empty($content)) : ?>
         <ul class="status-list">
-            <li><strong>Code du package :</strong> <?= htmlspecialchars($content['package_code']) ?></li>
-            <li><strong>Réfrigéré :</strong> <?= htmlspecialchars($content['refrigerated']) ?></li>
-            <li><strong>Fragile :</strong> <?= htmlspecialchars($content['fragile']) ?></li>
-            <li><strong>Poids :</strong> <?= htmlspecialchars($content['weight']) ?></li>
-            <li><strong>Arrivée :</strong> <?= htmlspecialchars($content['arrived_at']) ?></li>
-            <li><strong>Départ :</strong> <?= htmlspecialchars($content['departed_at']) ?></li>
-            <li><strong>Livraison estimée :</strong> <?= htmlspecialchars($content['estimated_delivery']) ?></li>
-            <li><strong>Statut actuel :</strong> <?= htmlspecialchars($content['status']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["package_code"] ?> :</strong> <?= htmlspecialchars($content['package_code']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["refrigerated"] ?> :</strong> <?= htmlspecialchars($content['refrigerated']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["fragile"] ?> :</strong> <?= htmlspecialchars($content['fragile']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["weight"] ?> :</strong> <?= htmlspecialchars($content['weight']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["arrived_at"] ?> :</strong> <?= htmlspecialchars($content['arrived_at']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["departed_at"] ?> :</strong> <?= htmlspecialchars($content['departed_at']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["estimated_delivery"] ?> :</strong> <?= htmlspecialchars($content['estimated_delivery']) ?></li>
+            <li><strong><?= $data["lang"]["search"]["content"]["status_labels"]["status"] ?> :</strong> <?= htmlspecialchars($content['status']) ?></li>
         </ul>
 
     <?php else : ?>

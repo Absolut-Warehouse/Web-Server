@@ -9,36 +9,44 @@
 <?= view("partial/header", $data) ?>
 
 <main>
-    <h2><?= htmlspecialchars($data['lang']['orders']['title'] ?? 'Mes colis') ?></h2>
+    <h2><?= $data['lang']['orders']['title'] ?? 'Mes colis' ?></h2>
+
+    <?php if (!empty($_SESSION['error'])): ?>
+        <div class="alert alert-danger">
+            <?= $_SESSION['error'] ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
+    <?php if (!empty($_SESSION['success'])): ?>
+        <div class="alert alert-success">
+            <?= $_SESSION['success'] ?>
+        </div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
 
     <?php if (!empty($packages)) : ?>
         <div class="table-container">
             <table>
                 <thead>
                 <tr>
-                    <th>ID Commande</th>
-                    <th>Code Colis</th>
-                    <th>Réfrigéré</th>
-                    <th>Fragile</th>
-                    <th>Poids (kg)</th>
-                    <th>Statut</th>
-                    <th>Entrée</th>
-                    <th>Sortie</th>
-                    <th>Livraison estimée</th>
+                    <?php foreach ($data['lang']['orders']['table'] as $label): ?>
+                        <th><?= $label ?></th>
+                    <?php endforeach; ?>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($packages as $pkg): ?>
                     <tr>
-                        <td><?= htmlspecialchars($pkg['order_id']) ?></td>
-                        <td><?= htmlspecialchars($pkg['package_code']) ?></td>
-                        <td><?= $pkg['refrigerated'] ? 'Oui' : 'Non' ?></td>
-                        <td><?= $pkg['fragile'] ? 'Oui' : 'Non' ?></td>
-                        <td><?= htmlspecialchars($pkg['weight']) ?></td>
-                        <td><span class="status <?= htmlspecialchars($pkg['status']) ?>"><?= htmlspecialchars($pkg['status']) ?></span></td>
-                        <td><?= htmlspecialchars($pkg['entry_time'] ?? 'En attente') ?></td>
-                        <td><?= htmlspecialchars($pkg['exit_time'] ?? 'En attente') ?></td>
-                        <td><?= htmlspecialchars($pkg['estimated_delivery'] ?? 'Non disponible') ?></td>
+                        <td><?= $pkg['order_id'] ?></td>
+                        <td><?= $pkg['package_code'] ?></td>
+                        <td><?= $pkg['refrigerated'] ? $data['lang']['orders']['common']['yes'] : $data['lang']['orders']['common']['no'] ?></td>
+                        <td><?= $pkg['fragile'] ? $data['lang']['orders']['common']['yes'] : $data['lang']['orders']['common']['no'] ?></td>
+                        <td><?= $pkg['weight'] ?></td>
+                        <td><?= $data['lang']['orders']['status'][$pkg['status']] ?? $pkg['status'] ?></td>
+                        <td><?= $pkg['entry_time'] ?? $data['lang']['orders']['status_texts']['pending'] ?></td>
+                        <td><?= $pkg['exit_time'] ?? $data['lang']['orders']['status_texts']['pending'] ?></td>
+                        <td><?= $pkg['estimated_delivery'] ?? $data['lang']['orders']['status_texts']['no_data'] ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

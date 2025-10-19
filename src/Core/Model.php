@@ -358,14 +358,14 @@ abstract class Model
     }
 
 
-    public function hasMany(string $relatedModel, string $foreignKey, string $localKey = null): array
+    public function hasMany(string $relatedModel, string $foreignKey, ?string $localKey = null): array
     {
         $localKey = $localKey ?? $this->primaryKey;
         $relatedInstance = new $relatedModel();
         return $relatedInstance->where($foreignKey, $this->$localKey)->get();
     }
 
-    public function belongsTo(string $relatedClass, string $foreignKey, string $ownerKey = null): ?array
+    public function belongsTo(string $relatedClass, string $foreignKey, ?string $ownerKey = null): ?array
     {
         $ownerKey = $ownerKey ?? (new $relatedClass())->primaryKey;
         $foreignId = $this->$foreignKey ?? null;

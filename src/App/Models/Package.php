@@ -7,6 +7,7 @@ class Package extends Model
 {
     protected string $table = 'package';
     protected string $primaryKey = 'package_id';
+    public array $attributes = [];
     protected array $fillable = [
         'package_code',
         'package_refrigerated',

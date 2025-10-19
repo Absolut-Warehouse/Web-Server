@@ -20,27 +20,29 @@ class SearchController
             exit();
         }
 
-        // Chercher le package en base
         $packageModel = new Package();
         $package = $packageModel->query()
             ->where('package_code', $trackingCode)
             ->first();
 
         if (!$package) {
-            // Redirection si le package n’existe pas
             $lang = Lang::get();
-            $content = ["error_code" => 404, "message" => "Numéro de commande invalide."];
-            $data = ["lang" => $lang, "content" => $content];
+            $content = [
+                "error_code" => 404,
+                "message" => "Numéro de commande invalide."
+            ];
+            $data = [
+                "lang" => $lang,
+                "content" => $content,
+                "page_title" => $lang['search']['title'] ?? 'Rechercher'
+            ];
             return view("errors/error", $data);
         }
 
-
-        // Instancier pour utiliser belongsTo
         $packageInstance = new Package();
-        $packageInstance->attributes = $package; // injecter les données
-        $item = $packageInstance->item(); // récupère l’item lié
+        $packageInstance->attributes = $package;
+        $item = $packageInstance->item();
 
-        // Préparer le contenu pour la vue
         $content = [
             'package_code' => $package['package_code'],
             'refrigerated' => $package['package_refrigerated'] ? 'Oui' : 'Non',
@@ -53,19 +55,21 @@ class SearchController
             'status' => $item['item_status'] ?? 'En attente',
         ];
 
-
         $lang = Lang::get();
-        $data = ["lang" => $lang, "content" => $content, "package" => $package];
+        $data = [
+            "lang" => $lang,
+            "content" => $content,
+            "package" => $package,
+            "page_title" => $lang['search']['title'] ?? 'Rechercher'
+        ];
 
         return view('pages/search', $data);
     }
 
-
     public function orders(): false|string
     {
-        $user = Auth::user(); // Utilisateur connecté
+        $user = Auth::user();
 
-        // 1️⃣ Récupérer l'adresse de l'utilisateur (s'il en a une)
         $address = (new Address())
             ->query()
             ->where('user_email', $user['email'])
@@ -75,19 +79,16 @@ class SearchController
 
         if ($address) {
             $addressId = $address['address_id'];
-
-            // 2️⃣ Récupérer toutes les commandes liées à cette adresse
             $orders = (new Order())
                 ->query()
                 ->where('source_address_id', $addressId)
                 ->orWhere('destination_address_id', $addressId)
                 ->get();
 
-            // 3️⃣ Récupérer tous les packages liés aux items de ces commandes
             foreach ($orders as $order) {
                 $items = (new Item())
                     ->query()
-                    ->where('item_id', $order['order_id']) // à adapter si order a item_id
+                    ->where('item_id', $order['order_id'])
                     ->get();
 
                 foreach ($items as $item) {
@@ -117,11 +118,10 @@ class SearchController
         $data = [
             'lang' => $lang,
             'user' => $user,
-            'packages' => $packages
+            'packages' => $packages,
+            'page_title' => $lang['orders']['title'] ?? 'Mes colis'
         ];
 
         return view('pages/orders', $data);
     }
-
-
 }

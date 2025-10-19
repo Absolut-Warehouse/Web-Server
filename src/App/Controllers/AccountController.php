@@ -16,24 +16,30 @@ class AccountController
     /**
      * @throws Exception
      */
+    // Exemple pour signin()
     public function signin(): false|string
     {
         $lang = Lang::get();
-        $content = [];
-        $data =  ["lang" => $lang, "content" => $content];
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['signin']['title'] ?? 'Connexion', // titre de la page
+            "content" => [] // contenu spécifique à la vue
+        ];
         return view('pages/signin', $data);
     }
 
-    /**
-     * @throws Exception
-     */
+// Exemple pour signup()
     public function signup(): false|string
     {
         $lang = Lang::get();
-        $content = [];
-        $data =  ["lang" => $lang, "content" => $content];
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['signup']['title'] ?? 'Inscription',
+            "content" => []
+        ];
         return view('pages/signup', $data);
     }
+
 
     /**
      * @throws RandomException
@@ -143,19 +149,12 @@ class AccountController
     }
 
 
-    public function home() {
+    public function home()
+    {
         $lang = Lang::get();
-
-        // Récupère l'utilisateur connecté
-        $user = Auth::user(); // retourne un tableau ou null
-
+        $user = Auth::user();
         $addressModel = new Address();
-        $address = null;
-
-        $address = null;
-        if ($user) {
-            $address = $addressModel->where('user_email', $user['email'])->first();
-        }
+        $address = $user ? $addressModel->where('user_email', $user['email'])->first() : null;
 
         $content = [
             'user_nom' => $user['user_nom'] ?? '',
@@ -171,7 +170,11 @@ class AccountController
             'country' => $address['country'] ?? ''
         ];
 
-        $data = ["lang" => $lang, "content" => $content];
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['myaccount']['title'] ?? 'Mon compte',
+            "content" => $content
+        ];
 
         return view('pages/account', $data);
     }
@@ -276,43 +279,58 @@ class AccountController
             exit;
         }
 
-        $addressModel = new Address();
-        $fields = [
-            'country' => trim($_POST['country'] ?? ''),
-            'postal_code' => trim($_POST['postal_code'] ?? ''),
-            'city' => trim($_POST['city'] ?? ''),
-            'street' => trim($_POST['address_line1'] ?? ''),
-            'complementary' => trim($_POST['address_line2'] ?? ''),
-            'street_number' => '1',
-            'user_email' => $user['email']
-        ];
+        $addressModel = new \App\Models\Address();
 
-        // Validation basique
-        if (empty($fields['country']) || empty($fields['postal_code']) || empty($fields['city'])) {
+        // Récupération des champs du formulaire (utilise les noms du form)
+        $country = trim($_POST['country'] ?? '');
+        $postal_code = trim($_POST['postal_code'] ?? '');
+        $city = trim($_POST['city'] ?? '');
+        $street = trim($_POST['address_line1'] ?? '');
+        $complementary = trim($_POST['address_line2'] ?? '');
+        $street_number = trim($_POST['street_number'] ?? '');
+
+        // Validation minimale
+        if ($country === '' || $postal_code === '' || $city === '' || $street === '') {
             $_SESSION['error'] = "Veuillez remplir tous les champs obligatoires de l’adresse.";
             redirect('/account');
             exit;
         }
 
-        // Vérifier si l'adresse existe déjà
-        $existing = $addressModel->query()
-            ->where('user_email', $user['email'])
-            ->first();
+        // Normaliser les valeurs vides en null si la colonne accepte NULL
+        $payload = [
+            'country' => $country,
+            'postal_code' => $postal_code,
+            'city' => $city,
+            'street' => $street,
+            'complementary' => $complementary !== '' ? $complementary : null,
+            'street_number' => $street_number !== '' ? $street_number : null,
+            'user_email' => $user['email'],
+        ];
 
-        if ($existing) {
-            // Mettre à jour l'adresse existante
-            $addressModel->update($existing['address_id'], $fields);
-        } else {
-            // Insertion manuelle avec requête SQL
-            $sql = "INSERT INTO address (country, postal_code, city, street, complementary, street_number, user_email)
-                VALUES (:country, :postal_code, :city, :street, :complementary, :street_number, :user_email)";
+        try {
+            // Vérifier si une adresse existe pour cet utilisateur (user_email)
+            $existing = $addressModel->query()->where('user_email', $user['email'])->first();
 
-            $addressModel->query($sql, $fields);
+            if ($existing) {
+                // Mettre à jour l'adresse existante (update attend l'id)
+                $addressModel->update((int)$existing['address_id'], $payload);
+                $_SESSION['success'] = "Adresse mise à jour avec succès.";
+            } else {
+                // Créer une nouvelle adresse
+                $addressModel->create($payload);
+                $_SESSION['success'] = "Adresse ajoutée avec succès.";
+            }
+        } catch (\PDOException $e) {
+            // Logger l'erreur (si tu as une fonction log) et afficher message friendly
+            // error_log($e->getMessage());
+            $_SESSION['error'] = "Une erreur est survenue lors de l'enregistrement de l'adresse : " . $e->getMessage();
+            // Optionnel : pour debug en local seulement
+            // $_SESSION['error_details'] = $e->getMessage();
         }
 
-        $_SESSION['success'] = "Adresse mise à jour avec succès.";
         redirect('/account');
     }
+
 
 
     /**
@@ -327,12 +345,23 @@ class AccountController
         }
 
         $userModel = new User();
-        $userModel->delete($user['user_id']);
 
-        // Nettoyage de la session
-        session_destroy();
+        try {
+            // ✅ On ajoute une clause WHERE explicite
+            $userModel->query()
+                ->where('user_id', $user['user_id'])
+                ->delete();
 
-        redirect('/');
+            // On détruit la session
+            Auth::logout();
+
+            $_SESSION['success'] = "Votre compte a bien été supprimé.";
+            redirect('/');
+        } catch (\Throwable $e) {
+            $_SESSION['error'] = "Une erreur est survenue lors de la suppression : " . $e->getMessage();
+            redirect('/account');
+        }
     }
+
 
 }

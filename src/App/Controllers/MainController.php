@@ -8,42 +8,56 @@ class MainController
 {
     public function index()
     {
-        // Données à injecter dans la vue
         $lang = Lang::get();
-        $content = [];
-        $data =  ["lang" => $lang, "content" => $content];
-
-        // Rendu de la vue (selon ta méthode)
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['home']['title'] ?? 'Accueil',
+            "content" => []
+        ];
         return view('pages/home', $data);
     }
 
-    public function faq() {
+    public function faq()
+    {
         $lang = Lang::get();
-        $content = [];
-        $data =  ["lang" => $lang, "content" => $content];
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['FAQ']['title'] ?? 'FAQ',
+            "content" => []
+        ];
         return view('pages/FAQ', $data);
     }
 
-
-    public function team() {
+    public function team()
+    {
         $lang = Lang::get();
-        $content = [];
-        $data =  ["lang" => $lang, "content" => $content];
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['team']['title'] ?? 'Equipe',
+            "content" => []
+        ];
         return view('pages/team', $data);
     }
 
-    public function mission() {
+    public function mission()
+    {
         $lang = Lang::get();
-        $content = [];
-        $data =  ["lang" => $lang, "content" => $content];
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['mission']['title'] ?? 'Objectif',
+            "content" => []
+        ];
         return view('pages/mission', $data);
     }
 
-    public function contact() {
+    public function contact()
+    {
         $lang = Lang::get();
-        $content = [];
-        $data =  ["lang" => $lang, "content" => $content];
+        $data = [
+            "lang" => $lang,
+            "page_title" => $lang['contact']['title'] ?? 'Contact',
+            "content" => []
+        ];
         return view('pages/contact', $data);
     }
-
 }

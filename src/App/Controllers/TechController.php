@@ -9,7 +9,7 @@ class TechController
 {
     public function index()
     {
-        // --- Langue (déjà correct)
+        // --- Langue
         $lang = Lang::get();
 
         // --- Informations système
@@ -37,22 +37,19 @@ class TechController
         $data = [
             "lang" => $lang,
             "system" => $system,
+            "page_title" => $lang['tech']['title'] ?? 'Technologie' // <-- ajout du page_title
         ];
 
         // --- Rendu de la vue
         return view('pages/tech', $data);
     }
 
-    /**
-     * Retourne un tableau d'en-têtes HTTP (compatible Apache / Nginx)
-     */
     private function getRequestHeaders(): array
     {
         if (function_exists('getallheaders')) {
             return getallheaders();
         }
 
-        // Alternative manuelle
         $headers = [];
         foreach ($_SERVER as $key => $value) {
             if (str_starts_with($key, 'HTTP_')) {
@@ -63,9 +60,6 @@ class TechController
         return $headers;
     }
 
-    /**
-     * Détermine un nom simplifié du navigateur à partir du user agent
-     */
     private function getBrowserName(string $userAgent): string
     {
         if (stripos($userAgent, 'Firefox') !== false) return 'Mozilla Firefox';

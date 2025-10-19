@@ -4,7 +4,7 @@ return [
         "myaccount" => "Mon compte",
         "signup" => "S'inscrire",
         "signin" => "Se connecter",
-        "language" => "Language",
+        "language" => "Langage",
         "english" => "Anglais",
         "french" => "Français",
         "chinese" => "Chinois",
@@ -93,7 +93,7 @@ return [
         "content" => [
             "title" => "Nos contacts",
             "mail" =>"Email : Pas d&apos;email",
-            "github" =>"Github : https://github.com/Orange-Box-Warehouse",
+            "github" =>"Github : https://github.com/Absolut-Warehouse/",
             "instagram" => "Instagram : Pas de compte",
             "twitter" => "Twitter : Pas de compte",
             "facebook" => "Facebook : Pas de compte",
@@ -147,18 +147,22 @@ return [
         "content" => [
             "intro" => [
                 "title" => "Chercher votre colis",
-                "text" => "Entrez l'identifiant de votre colis ci-dessous pour suivre son état en temps réel."
+                "text" => "Entrez l'identifiant de votre colis ci-dessous pour suivre son état en <strong>temps réel</strong>."
             ],
             "form" => [
                 "placeholder" => "ID de votre colis",
                 "button" => "Rechercher"
             ],
             "status_labels" => [
-                "arrived" => "Arrivée dans l'entrepôt :",
-                "departed" => "Départ de l'entrepôt :",
-                "estimated" => "Livraison estimée :",
-                "current_status" => "Statut actuel :",
-                "not_found" => "Commande introuvable."
+                "package_code" => "Code du package",
+                "refrigerated" => "Réfrigéré",
+                "fragile" => "Fragile",
+                "weight" => "Poids",
+                "arrived_at" => "Arrivée dans l'entrepôt",
+                "departed_at" => "Départ de l'entrepôt",
+                "estimated_delivery" => "Livraison estimée",
+                "status" => "Statut actuel",
+                "not_found" => "<em>Commande introuvable.</em>"
             ]
         ]
     ],
@@ -259,6 +263,79 @@ return [
             "already_used_mail" => "Cette email est déjà utilisé",
             "password_too_short" => "Le mot de passe doit contenir au moins 6 caractères.",
             "passwords_not_match" => "Les mots de passe ne correspondent pas.",
+        ]
+    ],
+
+    "account" => [
+        "title" => "Mon compte",
+        "meta_desc" => "Page de gestion du compte utilisateur",
+        "content" => [
+            // Profil utilisateur
+            "profile_title" => "Profil utilisateur",
+            "label_name" => "Nom",
+            "label_firstname" => "Prénom",
+            "label_email" => "Email",
+            "label_phone" => "Téléphone",
+            "label_gender" => "Sexe",
+            "gender_male" => "Homme",
+            "gender_female" => "Femme",
+            "gender_other" => "Autre",
+            "update_profile_btn" => "Mettre à jour",
+            "update_profile_success" => "Profil mis à jour avec succès.",
+            "update_profile_error" => "Une erreur est survenue lors de la mise à jour du profil.",
+
+            // Adresse
+            "address_title" => "Adresse",
+            "address_line1" => "Adresse ligne 1",
+            "address_line2" => "Adresse ligne 2",
+            "city" => "Ville",
+            "postal_code" => "Code postal",
+            "country" => "Pays",
+            "update_address_btn" => "Mettre à jour l'adresse",
+            "no_address_defined" => "Non définie",
+            "update_address_success" => "Adresse mise à jour avec succès.",
+            "update_address_error" => "Une erreur est survenue lors de l'enregistrement de l'adresse.",
+            "address_missing_fields" => "Veuillez remplir tous les champs obligatoires de l’adresse.",
+
+            // Suppression du compte
+            "delete_account_btn" => "Supprimer mon compte",
+            "delete_account_confirm" => "Voulez-vous vraiment supprimer votre compte ?",
+            "delete_account_success" => "Votre compte a bien été supprimé.",
+            "delete_account_error" => "Une erreur est survenue lors de la suppression du compte.",
+
+            // Messages génériques
+            "error_title" => "Erreur",
+            "success_title" => "Succès",
+        ]
+    ],
+
+    "orders" => [
+        "title" => "Mes colis",
+        "no_packages" => "<em>Vous n’avez aucun colis.</em>",
+        "table" => [
+            "order_id" => "ID Commande",
+            "package_code" => "Code Colis",
+            "refrigerated" => "Réfrigéré",
+            "fragile" => "Fragile",
+            "weight" => "Poids (kg)",
+            "status" => "Statut",
+            "entry_time" => "Entrée",
+            "exit_time" => "Sortie",
+            "estimated_delivery" => "Livraison estimée"
+        ],
+        "status" => [
+            "in_storage" => "<span class='status in_storage'>En stockage</span>",
+            "outbound" => "<span class='status outbound'>En transit</span>",
+            "delivered" => "<span class='status delivered'>Livré</span>",
+            "picked_up" => "<span class='status picked_up'>Récupéré</span>"
+        ],
+        "status_texts" => [
+            "pending" => "<em>En attente</em>",
+            "no_data" => "<em>Non disponible</em>",
+        ],
+        "common" => [
+            "yes" => "Oui",
+            "no" => "Non"
         ]
     ],
 

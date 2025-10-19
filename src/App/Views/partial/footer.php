@@ -11,7 +11,7 @@
             </div>
             <div class="column">
                 <h3><?= $data['lang']["footer"]["network"] ?></h3>
-                <a href="https://github.com/Orange-Box-Warehouse"><i class="fa-brands fa-github"></i>  <?= $data['lang']["footer"]["github"] ?></a>
+                <a href="https://github.com/Absolut-Warehouse/"><i class="fa-brands fa-github"></i>  <?= $data['lang']["footer"]["github"] ?></a>
             </div>
 
             <div class="column">
