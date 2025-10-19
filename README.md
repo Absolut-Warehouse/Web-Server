@@ -57,9 +57,11 @@ Le site supporte actuellement **5 langues** :
 - 🇪🇸 Espagnol  
 
 L’ajout d’une nouvelle langue est très simple :  
-1. Créer un dossier dans `/lang/` portant le code de la langue (ex : `it/`).  
-2. Ajouter les fichiers de traduction (`messages.php` ou `messages.json`).  
-3. La langue devient automatiquement disponible dans le menu.
+1. Créer un fichier dans `/lang/` portant le code de la langue (ex : `it.php`).  
+2. Ajouter les données de traduction en se basant sur les autres fichiers.
+3. Préciser dans la config que le fichier est installé.
+4. Ne pas oublier d'ajouter l'option d'utiliser la langue dans le partial/header.php !
+5. La langue devient automatiquement disponible dans le menu.
 
 ---
 
@@ -117,27 +119,55 @@ L’ajout d’une nouvelle langue est très simple :
 ## 🧰 Structure de fichiers simplifiée
 
 ```
-mon-projet-php/
+Web-Server/
 ├── app/
+│   ├── Lang/
+│   │   ├── en.php
+│   │   ├── fr.php
+│   │   ├── de.php
+│   │   ├── es.php
+│   │   └── zh.php
+│   │
 │   ├── Controllers/
-│   └── Views/
+│   │   ├── AccountController.php
+│   │   ├── LangController.php
+│   │   ├── MainController.php
+│   │   ├── SearchController.php
+│   │   └── TechController.php
+│   │
+│   ├── Models/
+│   │   ├── Address.php
+│   │   ├── Container.php
+│   │   ├── Employee.php
+│   │   ├── Item.php
+│   │   ├── Order.php
+│   │   ├── Package.php
+│   │   ├── User.php
+│   │   └── UserActivity.php
+│   │
+│   ├── Routes/
+│   │   └── web.php
+│   │
+│   └── Config/
+│       └── config.php
+│
 ├── core/
 │   ├── Router.php
-│   ├── App.php
-│   └── Controller.php
-├── lang/
-│   ├── en/
-│   ├── fr/
-│   ├── de/
-│   ├── es/
-│   └── zh/
+│   ├── Auth.php
+│   ├── View.php
+│   ├── Route.php
+│   ├── Lang.php
+│   ├── Database.php
+│   ├── helpers.php
+│   └── Model.php
+│
 ├── public/
 │   ├── css/
 │   ├── js/
-|   ├── resources/
-|   ├── .htaccess
+│   ├── resources/
+│   ├── .htaccess
 │   └── index.php
-└── README.md
+
 ```
 
 ---
