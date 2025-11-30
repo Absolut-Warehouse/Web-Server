@@ -5,6 +5,26 @@ use Core\Model;
 
 class User extends Model
 {
+    // =======================================================
+    // DÉCLARATION DES PROPRIÉTÉS (Ajout pour PHP 8.2+)
+    // Ces propriétés correspondent aux colonnes de la table 'user'
+    // et sont nécessaires pour l'hydratation par Core\Model sans Dynamic Properties.
+    // =======================================================
+    public ?int $user_id = null;
+    public ?string $user_nom = null;
+    public ?string $user_prenom = null;
+    public ?string $password = null;
+    public ?string $email = null;
+    public ?string $user_phone_number = null;
+    public ?string $sexe = null;
+    // Si $this->id est utilisé par le modèle parent pour la clé primaire
+    public ?int $id = null;
+
+    // =======================================================
+    // FIN DES DÉCLARATIONS
+    // =======================================================
+
+
     protected string $table = 'user';
     protected string $primaryKey = 'user_id';
     protected array $fillable = ["user_nom", "user_prenom", "password", "email", "user_phone_number", "sexe"];
@@ -21,6 +41,7 @@ class User extends Model
 
     public function getFullName(): string
     {
+        // Utilisation des propriétés déclarées
         return $this->user_prenom . ' ' . $this->user_nom;
     }
 
@@ -67,6 +88,7 @@ class User extends Model
 
     public function isAdmin(): bool
     {
+        // NOTE: Votre logique isAdmin est identique à isManager. Assurez-vous que c'est intentionnel.
         $employee = (new Employee())
             ->where('user_email', $this->email)
             ->where('position', 'Gestionnaire')
