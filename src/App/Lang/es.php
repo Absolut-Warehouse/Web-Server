@@ -3,17 +3,23 @@ return [
     "header" => [
         "myaccount" => "Mi Cuenta",
         "signup" => "Registrarse",
-        "signin" => "Iniciar sesión",
+        "signin" => "Iniciar Sesión",
         "language" => "Idioma",
         "english" => "Inglés",
         "french" => "Francés",
         "chinese" => "Chino",
         "german" => "Alemán",
         "spanish" => "Español",
-        "mission" => "Misión",
-        "team" => "Nuestro equipo",
-        "subject" => "Asunto",
+        "mission" => "Objetivo",
+        "team" => "Nuestro Equipo",
+        "subject" => "Tema",
         "tech" => "Técnico",
+        "logout" => "Cerrar Sesión",
+        "myorders" => "Mis Pedidos",
+        "employee_menu" => "Área de Empleados",
+        "dashboard" => "Panel de Control",
+        "package_list" => "Lista de Paquetes",
+        "manage_employees" => "Gestión de Empleados",
     ],
 
     "footer" => [
@@ -48,6 +54,17 @@ return [
                 "text_address" => "<strong>Dirección:</strong> 123 Rue de l’Exemple, 75000 París, Francia",
                 "text_phone" => "<strong>Teléfono:</strong> +33 0 00 00 00 00",
             ],
+
+            "marketing_switch" => [
+                "prefix" => "SU PAQUETE",
+                "suffix" => "¡GARANTIZADO!",
+                "flip_phrases" => [
+                    "A TIEMPO",
+                    "SEGURO",
+                    "EN CUALQUIER LUGAR DEL MUNDO"
+                ]
+            ],
+
         ],
     ],
 
@@ -329,6 +346,124 @@ return [
             "yes" => "Sí",
             "no" => "No"
         ]
+    ],
+
+
+    "employee_dashboard" => [
+        "title" => "Tablero de Empleados",
+        "welcome" => "Bienvenido",
+        "section_account_role" => "Información de Cuenta y Rol",
+        "label_full_name" => "Nombre Completo",
+        "label_email" => "Correo Electrónico",
+        "label_phone" => "Teléfono",
+        "section_employment" => "Detalles del Empleo",
+        "label_employee_id" => "ID del Empleado",
+        "label_position" => "Puesto",
+        "label_hire_date" => "Fecha de Contratación",
+        "label_not_available" => "No Disponible",
+        "section_terminals" => "Terminales Asignados",
+        "terminal_assigned_text" => "Estás asignado(a) a los siguientes terminales:",
+        "terminal_id_label" => "Terminal",
+        "terminal_name_unknown" => "Nombre Desconocido",
+        "terminal_location_label" => "Ubicación",
+        "terminal_location_unspecified" => "Dirección no especificada",
+        "no_terminal_assigned" => "Actualmente no tienes ningún terminal asignado. Contacta a tu administrador.",
+    ],
+
+    "employee_edit" => [
+        "page_title" => "Editar Empleado",
+        "header_prefix" => "Edición de :",
+        "label_role" => "Rol/Puesto",
+        "label_hire_date" => "Fecha de Contratación",
+        "instruction_text" => "Por favor, edita la siguiente información del empleo:",
+        "button_submit" => "Guardar Cambios",
+        "button_delete" => "Eliminar Cuenta",
+        "debug_error_title" => "🛑 Error al Cargar la Información del Empleado",
+        "debug_error_text" => "No se pudo cargar la información del empleado.",
+        "debug_error_content_title" => "Contenido de employee:",
+        "delete_confirm_prompt" => "¿Estás seguro de que deseas ELIMINAR la cuenta del empleado %s (#%s)? Esta acción es irreversible.",
+        "delete_confirm_default" => "Este empleado",
+    ],
+
+    "employee_list" => [
+        "page_title" => "Gestión de Empleados",
+        "button_add" => "Añadir Empleado",
+        "table_header" => [
+            "full_name" => "Nombre Completo",
+            "role" => "Rol",
+            "email" => "Correo Electrónico",
+            "phone" => "Teléfono",
+            "status" => "Estado",
+            "actions" => "Acciones",
+        ],
+        "role" => [
+            "manager" => "Gerente",
+            "dispatcher" => "Despachador",
+            "delivery_driver" => "Conductor de Entrega",
+            "unknown" => "Desconocido",
+        ],
+        "status" => [
+            "online" => "En Línea 🟢",
+            "inactive" => "Inactivo",
+            "never_connected" => "Nunca Conectado",
+        ],
+        "no_employees_found" => "No se encontraron empleados.",
+        "action_edit" => "Editar ✏️",
+        "action_edit_title" => "Editar Empleado",
+    ],
+
+    "package_list" => [
+        "page_title" => "Gestión de Paquetes",
+        "search_placeholder" => "Código de Paquete o Ubicación...",
+        "search_button" => "Buscar",
+        "reset_button" => "Restablecer",
+        "table_header" => [
+            "code" => "Código del Paquete",
+            "infos" => "Información",
+            "weight" => "Peso (kg)",
+            "location" => "Ubicación",
+            "destination" => "Destino",
+            "status" => "Estado",
+            "entry" => "Entrada",
+            "exit" => "Salida",
+            "estimated_delivery" => "Entrega Estimada",
+        ],
+        "no_packages_found" => "No se encontraron paquetes.",
+        "info_fragile" => "Frágil ⚠️",
+        "info_refrigerated" => "Refrigerado ❄️",
+        "location_not_stored" => "No Almacenado",
+        "destination_na" => "N/D",
+        "pagination_prev" => "« Anterior",
+        "pagination_next" => "Siguiente »",
+        "pagination_summary_prefix" => "Página",
+        "pagination_summary_middle" => "de",
+        "pagination_summary_suffix" => "(Total:",
+    ],
+
+    "status_display" => [
+        "in_storage" => "En Almacén",
+        "outbound" => "En Envío",
+        "delivered" => "Entregado",
+        "picked_up" => "Recogido",
+        "cancelled" => "Cancelado",
+        "unknown" => "Desconocido",
+    ],
+
+    "employee_create" => [
+        "page_title" => "Añadir Empleado",
+        "main_header" => "➕ Añadir Nuevo Empleado (Asociar Cuenta)",
+        "description" => "Proporcione el correo electrónico de un usuario existente para asociarlo a un rol de empleado y luego defina su información de empleo.",
+        "error_prefix" => "Error al crear:",
+        "section_user_account" => "Cuenta de Usuario",
+        "label_email" => "Correo Electrónico del Usuario Existente:",
+        "placeholder_email" => "Ejemplo: nombre.apellido@empresa.com",
+        "hint_email" => "Este usuario debe existir ya en la base de datos.",
+        "section_employment_info" => "Información de Empleo",
+        "label_position" => "Puesto/Rol:",
+        "option_select_position" => "-- Seleccione un Puesto --",
+        "label_hire_date" => "Fecha de Contratación:",
+        "button_cancel" => "Cancelar",
+        "button_submit" => "✅ Añadir Empleado",
     ],
 
 ];

@@ -1,25 +1,30 @@
 <?php
+// On assume que $data['lang'] est disponible et contient la nouvelle section 'employee_list'
+$lang = $data['lang'];
+$list_lang = $lang['employee_list'];
+
 // Fonction utilitaire pour formater les rôles et statuts
-$renderRole = function(?string $roleKey): string {
+// Elle utilise maintenant le tableau de traduction $list_lang['role']
+$renderRole = function(?string $roleKey) use ($list_lang): string {
     $statusClass = 'badge-secondary';
-    $roleDisplay = 'Inconnu';
+    $roleDisplay = $list_lang['role']['unknown'] ?? 'Inconnu';
 
     // Le rôle vient de employee.position (EMPLOYEE_POSTE)
     switch ($roleKey) {
         case 'Gestionnaire':
-            $roleDisplay = 'Gestionnaire';
+            $roleDisplay = $list_lang['role']['manager'] ?? 'Gestionnaire';
             $statusClass = 'badge-warning';
             break;
         case 'Répartiteur':
-            $roleDisplay = 'Répartiteur'; // Afficher le poste exact
+            $roleDisplay = $list_lang['role']['dispatcher'] ?? 'Répartiteur';
             $statusClass = 'badge-info';
             break;
         case 'Livreur':
-            $roleDisplay = 'Livreur'; // Afficher le poste exact
+            $roleDisplay = $list_lang['role']['delivery_driver'] ?? 'Livreur';
             $statusClass = 'badge-info';
             break;
         default:
-            $roleDisplay = 'Inconnu';
+            $roleDisplay = $list_lang['role']['unknown'] ?? 'Inconnu';
             $statusClass = 'badge-secondary';
             break;
     }
@@ -28,11 +33,14 @@ $renderRole = function(?string $roleKey): string {
 };
 
 
+// Elle utilise maintenant le tableau de traduction $list_lang['status']
+$renderStatus = function(?string $lastActionTimestamp) use ($list_lang): string {
+    $inactive_text = $list_lang['status']['inactive'] ?? 'Inactif';
+    $online_text = $list_lang['status']['online'] ?? 'En ligne 🟢';
 
-$renderStatus = function(?string $lastActionTimestamp): string {
     // Si lastActionTimestamp est NULL, l'utilisateur est considéré comme Inactif (jamais connecté)
     if (empty($lastActionTimestamp)) {
-        return '<span class="badge badge-danger">Inactif</span>';
+        return "<span class=\"badge badge-danger\">{$inactive_text}</span>";
     }
 
     // Calculer la différence entre le temps actuel et la dernière action
@@ -44,12 +52,11 @@ $renderStatus = function(?string $lastActionTimestamp): string {
 
     if ($timeDifference < $threshold) {
         // Moins de 15 minutes : ACTIF (en ligne)
-        return '<span class="badge badge-success">En ligne 🟢</span>';
+        return "<span class=\"badge badge-success\">{$online_text}</span>";
     }
 
-    // Plus de 15 minutes : INACTIF (même si une action a été enregistrée)
-    // Nous utilisons le badge secondaire (gris) pour éviter le rouge si la personne existe.
-    return '<span class="badge badge-secondary">Inactif</span>';
+    // Plus de 15 minutes : INACTIF
+    return "<span class=\"badge badge-secondary\">{$inactive_text}</span>";
 };
 ?>
 
@@ -58,35 +65,36 @@ $renderStatus = function(?string $lastActionTimestamp): string {
 <head>
     <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('/css/employee_manager.css') ?>">
+    <title><?= htmlspecialchars($data['page_title'] ?? $list_lang['page_title']) ?></title>
 </head>
 <body>
 
 <?= view("partial/header", $data) ?>
 
 <main class="container">
-    <h1><?= $data['page_title'] ?></h1>
+    <h1><?= htmlspecialchars($data['page_title'] ?? $list_lang['page_title']) ?></h1>
 
     <div class="toolbar">
-        <a href="/employee/create" class="btn-create">➕ Ajouter un employé</a>
+        <a href="/employee/create" class="btn-create">➕ <?= $list_lang['button_add'] ?></a>
     </div>
 
     <div class="table-responsive">
         <table>
             <thead>
             <tr>
-                <th>Nom Complet</th>
-                <th>Rôle</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-                <th>Statut</th>
-                <th>Actions</th>
+                <th><?= $list_lang['table_header']['full_name'] ?></th>
+                <th><?= $list_lang['table_header']['role'] ?></th>
+                <th><?= $list_lang['table_header']['email'] ?></th>
+                <th><?= $list_lang['table_header']['phone'] ?></th>
+                <th><?= $list_lang['table_header']['status'] ?></th>
+                <th><?= $list_lang['table_header']['actions'] ?></th>
             </tr>
             </thead>
             <tbody>
             <?php if (empty($data['employees'])): ?>
                 <tr>
                     <td colspan="6" style="text-align:center; padding: 20px;">
-                        Aucun employé trouvé.
+                        <?= $list_lang['no_employees_found'] ?>
                     </td>
                 </tr>
             <?php else: ?>
@@ -111,8 +119,8 @@ $renderStatus = function(?string $lastActionTimestamp): string {
                         <td>
                             <a href="/employee/edit?id=<?= $employee['employee_id'] ?>"
                                class="btn-action btn-edit"
-                               title="Modifier l'employé">
-                                Modifier ✏️
+                               title="<?= $list_lang['action_edit_title'] ?>">
+                                <?= $list_lang['action_edit'] ?>
                             </a>
                         </td>
                     </tr>

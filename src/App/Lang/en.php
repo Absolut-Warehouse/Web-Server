@@ -14,6 +14,12 @@ return [
         "team" => "Our Team",
         "subject" => "Subject",
         "tech" => "Technical",
+        "logout" => "Log Out",
+        "myorders" => "My Orders",
+        "employee_menu" => "Employee Area",
+        "dashboard" => "Dashboard",
+        "package_list" => "Package List",
+        "manage_employees" => "Employee Management",
     ],
 
     "footer" => [
@@ -48,6 +54,17 @@ return [
                 "text_address" => "<strong>Address:</strong> 123 Rue de l’Exemple, 75000 Paris, France",
                 "text_phone" => "<strong>Phone:</strong> +33 0 00 00 00 00",
             ],
+
+            "marketing_switch" => [
+                "prefix" => "YOUR PACKAGE",
+                "suffix" => "GUARANTEED!",
+                "flip_phrases" => [
+                    "ON TIME",
+                    "SAFE",
+                    "ANYWHERE IN THE WORLD"
+                ]
+            ],
+
         ],
     ],
 
@@ -330,6 +347,124 @@ return [
             "yes" => "Yes",
             "no" => "No"
         ]
+    ],
+
+
+    "employee_dashboard" => [
+        "title" => "Employee Dashboard",
+        "welcome" => "Welcome",
+        "section_account_role" => "Account and Role Information",
+        "label_full_name" => "Full Name",
+        "label_email" => "Email",
+        "label_phone" => "Phone",
+        "section_employment" => "Employment Details",
+        "label_employee_id" => "Employee ID",
+        "label_position" => "Position",
+        "label_hire_date" => "Hire Date",
+        "label_not_available" => "N/A",
+        "section_terminals" => "Assigned Terminals",
+        "terminal_assigned_text" => "You are assigned to the following terminals:",
+        "terminal_id_label" => "Terminal",
+        "terminal_name_unknown" => "Unknown Name",
+        "terminal_location_label" => "Location",
+        "terminal_location_unspecified" => "Unspecified Address",
+        "no_terminal_assigned" => "You currently have no assigned terminals. Contact your manager.",
+    ],
+
+    "employee_edit" => [
+        "page_title" => "Edit Employee",
+        "header_prefix" => "Editing :",
+        "label_role" => "Role/Position",
+        "label_hire_date" => "Hire Date",
+        "instruction_text" => "Please edit the following employment information:",
+        "button_submit" => "Save Changes",
+        "button_delete" => "Delete Account",
+        "debug_error_title" => "🛑 Employee Information Loading Error",
+        "debug_error_text" => "Employee information could not be loaded.",
+        "debug_error_content_title" => "Content of employee:",
+        "delete_confirm_prompt" => "Are you sure you want to DELETE the account of employee %s (#%s)? This action is irreversible.",
+        "delete_confirm_default" => "This employee",
+    ],
+
+    "employee_list" => [
+        "page_title" => "Employee Management",
+        "button_add" => "Add Employee",
+        "table_header" => [
+            "full_name" => "Full Name",
+            "role" => "Role",
+            "email" => "Email",
+            "phone" => "Phone",
+            "status" => "Status",
+            "actions" => "Actions",
+        ],
+        "role" => [
+            "manager" => "Manager",
+            "dispatcher" => "Dispatcher",
+            "delivery_driver" => "Delivery Driver",
+            "unknown" => "Unknown",
+        ],
+        "status" => [
+            "online" => "Online 🟢",
+            "inactive" => "Inactive",
+            "never_connected" => "Never Connected",
+        ],
+        "no_employees_found" => "No employees found.",
+        "action_edit" => "Edit ✏️",
+        "action_edit_title" => "Edit Employee",
+    ],
+
+    "package_list" => [
+        "page_title" => "Package Management",
+        "search_placeholder" => "Package Code or Location...",
+        "search_button" => "Search",
+        "reset_button" => "Reset",
+        "table_header" => [
+            "code" => "Package Code",
+            "infos" => "Info",
+            "weight" => "Weight (kg)",
+            "location" => "Location",
+            "destination" => "Destination",
+            "status" => "Status",
+            "entry" => "Entry",
+            "exit" => "Exit",
+            "estimated_delivery" => "Estimated Delivery",
+        ],
+        "no_packages_found" => "No packages found.",
+        "info_fragile" => "Fragile ⚠️",
+        "info_refrigerated" => "Refrigerated ❄️",
+        "location_not_stored" => "Not Stored",
+        "destination_na" => "N/A",
+        "pagination_prev" => "« Previous",
+        "pagination_next" => "Next »",
+        "pagination_summary_prefix" => "Page",
+        "pagination_summary_middle" => "of",
+        "pagination_summary_suffix" => "(Total:",
+    ],
+
+    "status_display" => [
+        "in_storage" => "In Storage",
+        "outbound" => "Out for Delivery",
+        "delivered" => "Delivered",
+        "picked_up" => "Picked Up",
+        "cancelled" => "Cancelled",
+        "unknown" => "Unknown",
+    ],
+
+    "employee_create" => [
+        "page_title" => "Add Employee",
+        "main_header" => "➕ Add New Employee (Account Association)",
+        "description" => "Please provide the email of an existing user to associate it with an employee role and then set their employment information.",
+        "error_prefix" => "Error Creating:",
+        "section_user_account" => "User Account",
+        "label_email" => "Existing User Email:",
+        "placeholder_email" => "Ex: name.surname@company.com",
+        "hint_email" => "This user must already exist in the database.",
+        "section_employment_info" => "Employment Information",
+        "label_position" => "Position/Role:",
+        "option_select_position" => "-- Select Position --",
+        "label_hire_date" => "Hire Date:",
+        "button_cancel" => "Cancel",
+        "button_submit" => "✅ Add Employee",
     ],
 
 

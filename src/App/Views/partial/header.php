@@ -23,7 +23,6 @@ $user = Auth::check() ? Auth::user() : null;
             </h1>
             <nav class="nav">
                 <ul class="nav-menu">
-                    <!-- Mon compte -->
                     <li class="dropdown">
                         <?php if (Auth::check() && $user): ?>
                             <a href="#account">
@@ -32,8 +31,8 @@ $user = Auth::check() ? Auth::user() : null;
                             </a>
                             <div class="dropdown-content">
                                 <a href="/account"><?= $data['lang']["header"]["myaccount"] ?></a>
-                                <a href="/orders"><?= $data['lang']["header"]["myorders"] ?? "Mes commandes" ?></a>
-                                <a href="/logout">Se déconnecter</a>
+                                <a href="/orders"><?= $data['lang']["header"]["myorders"] ?></a>
+                                <a href="/logout"><?= $data['lang']["header"]["logout"] ?></a>
                             </div>
                         <?php else: ?>
                             <a href="#signin">
@@ -47,26 +46,24 @@ $user = Auth::check() ? Auth::user() : null;
                         <?php endif; ?>
                     </li>
 
-                    <!-- Menu employé (si connecté et employé) -->
                     <?php if (Auth::check() && $user && $user->isEmployee()): ?>
                         <li class="dropdown">
                             <a href="#employee">
                                 <i class="fa-solid fa-briefcase"></i>
-                                <?= $data['lang']["header"]["employee_menu"] ?? "Espace Employé" ?>
+                                <?= $data['lang']["header"]["employee_menu"] ?>
                             </a>
                             <div class="dropdown-content">
-                                <a href="/dashboard"><?= $data['lang']["header"]["dashboard"] ?? "Menu Employée" ?></a>
-                                <a href="/package_list"><?= $data['lang']["header"]["dashboard"] ?? "Listes des packages" ?></a>
+                                <a href="/dashboard"><?= $data['lang']["header"]["dashboard"] ?></a>
+                                <a href="/package_list"><?= $data['lang']["header"]["package_list"] ?></a>
                                 <?php
                                 if ($user->isManager()):
                                     ?>
-                                    <a href="/manage"><?= $data['lang']["header"]["dashboard"] ?? "Gestion Des Employés" ?></a>
+                                    <a href="/manage"><?= $data['lang']["header"]["manage_employees"] ?></a>
                                 <?php endif; ?>
                             </div>
                         </li>
                     <?php endif; ?>
 
-                    <!-- Menu langue -->
                     <li class="dropdown">
                         <a href="#settings">
                             <i class="fa-solid fa-language"></i>

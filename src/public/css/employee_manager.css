@@ -1,8 +1,8 @@
 /* Styles pour employee_manager.css */
 
-.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+/*.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 h1 { margin-bottom: 25px; font-size: 1.8em; }
-
+*/
 .toolbar {
 display: flex;
 justify-content: flex-end; /* Aligne le bouton Ajouter à droite */

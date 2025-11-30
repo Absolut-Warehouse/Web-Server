@@ -1,6 +1,10 @@
 <?php
+$lang = $data['lang'];
+$list_lang = $lang['package_list'];
+$status_lang = $lang['status_display']; // Raccourci pour les statuts
+
 // --- Helper pour générer les liens de tri ---
-$sortLink = function($column, $label) use ($data) {
+$sortLink = function($column, $label) use ($data, $list_lang) {
     $currentSort = $data['filters']['sort'];
     $currentDir = $data['filters']['dir'];
 
@@ -13,12 +17,13 @@ $sortLink = function($column, $label) use ($data) {
     }
 
     $url = "?q=" . urlencode($data['filters']['q']) . "&sort=$column&dir=$newDir";
+    // Le label est déjà traduit dans la boucle d'appel (voir plus bas)
     return "<a href='$url' class='sort-link'>$label $icon</a>";
 };
 
 
-// --- NOUVEAU HELPER POUR L'AFFICHAGE DÉTAILLÉ (Utilisé pour la page de détails unique) ---
-$renderDetailedStatus = function(string $statusKey, array $data): string {
+// --- NOUVEAU HELPER POUR L'AFFICHAGE DÉTAILLÉ (Modifié pour utiliser la nouvelle clé $status_lang) ---
+$renderDetailedStatus = function(string $statusKey, array $data) use ($status_lang): string {
     $statusClass = '';
     $statusDisplay = htmlspecialchars($statusKey);
 
@@ -26,27 +31,27 @@ $renderDetailedStatus = function(string $statusKey, array $data): string {
     switch ($statusKey) {
         case 'in_storage':
             $statusClass = 'in_storage';
-            $statusDisplay = $data["lang"]["status_display"]["in_storage"] ?? 'En Stock';
+            $statusDisplay = $status_lang["in_storage"] ?? 'En Stock';
             break;
         case 'outbound':
             $statusClass = 'outbound';
-            $statusDisplay = $data["lang"]["status_display"]["outbound"] ?? 'En cours de livraison';
+            $statusDisplay = $status_lang["outbound"] ?? 'En cours de livraison';
             break;
         case 'delivered':
             $statusClass = 'delivered';
-            $statusDisplay = $data["lang"]["status_display"]["delivered"] ?? 'Livré';
+            $statusDisplay = $status_lang["delivered"] ?? 'Livré';
             break;
         case 'picked_up':
             $statusClass = 'picked_up';
-            $statusDisplay = $data["lang"]["status_display"]["picked_up"] ?? 'Retiré';
+            $statusDisplay = $status_lang["picked_up"] ?? 'Retiré';
             break;
         case 'cancelled':
             $statusClass = 'cancelled';
-            $statusDisplay = $data["lang"]["status_display"]["cancelled"] ?? 'Annulé';
+            $statusDisplay = $status_lang["cancelled"] ?? 'Annulé';
             break;
         default:
             $statusClass = 'unknown';
-            $statusDisplay = $data["lang"]["status_display"]["unknown"] ?? 'Inconnu';
+            $statusDisplay = $status_lang["unknown"] ?? 'Inconnu';
             break;
     }
 
@@ -69,26 +74,27 @@ $formatDate = function(?string $dateString): string {
 <head>
     <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('/css/package_employee.css') ?>">
+    <title><?= htmlspecialchars($data['page_title'] ?? $list_lang['page_title']) ?></title>
 </head>
 <body>
 
 <?= view("partial/header", $data) ?>
 
 <main class="container">
-    <h1><?= $data['page_title'] ?? "Gestion des packages" ?></h1>
+    <h1><?= htmlspecialchars($data['page_title'] ?? $list_lang['page_title']) ?></h1>
 
     <div class="toolbar">
         <form method="GET" action="/package_list" class="search-form">
             <input type="text" name="q"
-                   placeholder="Code colis ou Emplacement..."
+                   placeholder="<?= $list_lang['search_placeholder'] ?>"
                    value="<?= htmlspecialchars($data['filters']['q'] ?? '') ?>">
 
             <input type="hidden" name="sort" value="<?= $data['filters']['sort'] ?>">
             <input type="hidden" name="dir" value="<?= $data['filters']['dir'] ?>">
 
-            <button type="submit" class="btn-search">Rechercher</button>
+            <button type="submit" class="btn-search"><?= $list_lang['search_button'] ?></button>
             <?php if(!empty($data['filters']['q'])): ?>
-                <a href="/package_list" style="margin-left: 10px; color: #666;">Réinitialiser</a>
+                <a href="/package_list" style="margin-left: 10px; color: #666;"><?= $list_lang['reset_button'] ?></a>
             <?php endif; ?>
         </form>
     </div>
@@ -97,22 +103,22 @@ $formatDate = function(?string $dateString): string {
         <table>
             <thead>
             <tr>
-                <th><?= $sortLink('package.package_code', 'Code Colis') ?></th>
-                <th>Infos</th>
-                <th><?= $sortLink('item.item_weight', 'Poids (kg)') ?></th>
-                <th>Emplacement</th>
-                <th><?= $sortLink('address.city', 'Destination') ?></th>
-                <th><?= $sortLink('item.item_status', 'Statut') ?></th>
-                <th><?= $sortLink('item.item_entry_time', 'Entrée') ?></th>
-                <th><?= $sortLink('item.item_exit_time', 'Sortie') ?></th>
-                <th><?= $sortLink('item.item_estimated_delivery', 'Livraison Est.') ?></th>
+                <th><?= $sortLink('package.package_code', $list_lang['table_header']['code']) ?></th>
+                <th><?= $list_lang['table_header']['infos'] ?></th>
+                <th><?= $sortLink('item.item_weight', $list_lang['table_header']['weight']) ?></th>
+                <th><?= $list_lang['table_header']['location'] ?></th>
+                <th><?= $sortLink('address.city', $list_lang['table_header']['destination']) ?></th>
+                <th><?= $sortLink('item.item_status', $list_lang['table_header']['status']) ?></th>
+                <th><?= $sortLink('item.item_entry_time', $list_lang['table_header']['entry']) ?></th>
+                <th><?= $sortLink('item.item_exit_time', $list_lang['table_header']['exit']) ?></th>
+                <th><?= $sortLink('item.item_estimated_delivery', $list_lang['table_header']['estimated_delivery']) ?></th>
             </tr>
             </thead>
             <tbody>
             <?php if (empty($data['packages'])): ?>
                 <tr>
                     <td colspan="9" style="text-align:center; padding: 20px;">
-                        Aucun colis trouvé.
+                        <?= $list_lang['no_packages_found'] ?>
                     </td>
                 </tr>
             <?php else: ?>
@@ -123,10 +129,10 @@ $formatDate = function(?string $dateString): string {
                         </td>
                         <td>
                             <?php if ($pkg['package_fragile']): ?>
-                                <span class="badge badge-warning" title="Fragile">Fragile ⚠️</span>
+                                <span class="badge badge-warning" title="Fragile"><?= $list_lang['info_fragile'] ?></span>
                             <?php endif; ?>
                             <?php if ($pkg['package_refrigerated']): ?>
-                                <span class="badge badge-info" title="Réfrigéré">Frais ❄️</span>
+                                <span class="badge badge-info" title="Réfrigéré"><?= $list_lang['info_refrigerated'] ?></span>
                             <?php endif; ?>
                         </td>
                         <td><?= number_format($pkg['item_weight'], 2) ?> kg</td>
@@ -137,7 +143,7 @@ $formatDate = function(?string $dateString): string {
                                         (Zone <?= htmlspecialchars($pkg['zone_name']) ?>)
                                     </span>
                             <?php else: ?>
-                                <span class="badge badge-danger">Non rangé</span>
+                                <span class="badge badge-danger"><?= $list_lang['location_not_stored'] ?></span>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -149,7 +155,7 @@ $formatDate = function(?string $dateString): string {
                             if ($city && $postalCode): ?>
                                 <strong><?= $city ?></strong> (<?= $postalCode ?>)
                             <?php else: ?>
-                                <span style="color: #999;">N/D</span>
+                                <span style="color: #999;"><?= $list_lang['destination_na'] ?></span>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -183,11 +189,10 @@ $formatDate = function(?string $dateString): string {
 
                     // 1. Lien "Précédent"
                     if ($currentPage > 1): ?>
-                        <li><a href="/package_list<?= $baseQuery ?>&page=<?= $currentPage - 1 ?>">« Précédent</a></li>
+                        <li><a href="/package_list<?= $baseQuery ?>&page=<?= $currentPage - 1 ?>">« <?= $list_lang['pagination_prev'] ?></a></li>
                     <?php endif;
 
                     // 2. Liens Numériques (Afficher quelques pages autour de la page courante)
-                    // Définir la plage visible (par exemple, 2 pages avant et 2 pages après)
                     $range = 2;
                     $startPage = max(1, $currentPage - $range);
                     $endPage = min($totalPages, $currentPage + $range);
@@ -216,11 +221,11 @@ $formatDate = function(?string $dateString): string {
 
                     // 3. Lien "Suivant"
                     if ($currentPage < $totalPages): ?>
-                        <li><a href="/package_list<?= $baseQuery ?>&page=<?= $currentPage + 1 ?>">Suivant »</a></li>
+                        <li><a href="/package_list<?= $baseQuery ?>&page=<?= $currentPage + 1 ?>"><?= $list_lang['pagination_next'] ?> »</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
-            <p class="summary">Page <?= $currentPage ?> sur <?= $totalPages ?> (Total: <?= $data['pagination']['total'] ?>)</p>
+            <p class="summary"><?= $list_lang['pagination_summary_prefix'] ?> <?= $currentPage ?> <?= $list_lang['pagination_summary_middle'] ?> <?= $totalPages ?> <?= $list_lang['pagination_summary_suffix'] ?> <?= $data['pagination']['total'] ?>)</p>
         </div>
     <?php endif; ?>
 </main>

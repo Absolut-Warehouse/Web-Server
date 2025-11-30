@@ -17,15 +17,29 @@ $config = include __DIR__ . '/../../Config/config.php'; // chemin vers ton fichi
 <?= view("partial/header", $data) ?>
 
 <main>
+
+    <?php
+    $lang = $data['lang'] ?? [];
+    $marketing_lang = $lang['home']['content']['marketing_switch'] ?? [];
+    $flip_phrases = $marketing_lang['flip_phrases'] ?? [];
+    ?>
+
     <section class="main-content hide">
         <div id="animated_switch">
-            YOUR PACKAGE
+            <?= htmlspecialchars($marketing_lang['prefix'] ?? 'YOUR PACKAGE') ?>
+
             <div id="flip">
-                <div><div>ON TIME</div></div>
-                <div><div>SAFE</div></div>
-                <div><div>ANYWHERE</div></div>
+                <?php if (!empty($flip_phrases)): ?>
+                    <?php foreach ($flip_phrases as $phrase): ?>
+                        <div><div><?= htmlspecialchars($phrase) ?></div></div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div><div>ON TIME</div></div>
+                    <div><div>SAFE</div></div>
+                    <div><div>ANYWHERE</div></div>
+                <?php endif; ?>
             </div>
-            GUARANTEED!
+            <?= htmlspecialchars($marketing_lang['suffix'] ?? 'GUARANTEED!') ?>
         </div>
     </section>
 

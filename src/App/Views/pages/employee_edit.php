@@ -5,17 +5,20 @@ $employee = $data['employee'] ?? [];
 $positions = ['Gestionnaire', 'Répartiteur', 'Livreur'];
 // Les genres disponibles (issus de l'ENUM sexe). Assurez-vous que cette colonne est dans votre table "user"
 $sexes = ['H', 'F', 'N'];
+$lang = $data['lang'];
+$edit_lang = $lang['employee_edit']; // Accès rapide à la nouvelle section de traduction
 
 // Vérification basique pour s'assurer que nous avons un employé
 if (empty($employee) || !isset($employee['employee_id'])) {
 
-    // --- BLOC DE DÉBOGAGE AJOUTÉ ---
+    // --- BLOC DE DÉBOGAGE MIS À JOUR ---
     echo '<div class="alert alert-danger" style="margin: 20px;">';
-    echo '<h3>🛑 Erreur de Chargement des Informations d\'Employé</h3>';
-    echo '<p>Les informations de l\'employé n\'ont pas pu être chargées.</p>';
+    // Utilisation des clés de traduction
+    echo '<h3>' . $edit_lang['debug_error_title'] . '</h3>';
+    echo '<p>' . $edit_lang['debug_error_text'] . '</p>';
 
     // Afficher le contenu de la variable $employee de manière lisible
-    echo '<h4>Contenu de $employee:</h4>';
+    echo '<h4>' . $edit_lang['debug_error_content_title'] . '</h4>';
     echo '<pre style="background-color: #fdd; padding: 10px; border: 1px solid #f00;">';
     print_r($employee); // print_r() est idéal pour les tableaux
     echo '</pre>';
@@ -32,7 +35,7 @@ if (empty($employee) || !isset($employee['employee_id'])) {
 <head>
     <?= view("partial/common_head", $data) ?>
     <link rel="stylesheet" href="<?= base_url('/css/form_style.css') ?>">
-    <title><?= $data['page_title'] ?></title>
+    <title><?= htmlspecialchars($data['page_title'] ?? $edit_lang['page_title']) ?></title>
 </head>
 <body>
 
@@ -42,7 +45,7 @@ if (empty($employee) || !isset($employee['employee_id'])) {
     <div class="form-container">
 
         <h1 class="employee-info-header">
-            Modification de :
+            <?= $edit_lang['header_prefix'] ?>
             <span class="highlight-info">
                 <?= htmlspecialchars($employee['user_prenom'] ?? 'N/A') . ' ' . htmlspecialchars($employee['user_nom'] ?? 'N/A') ?>
                 (<?= htmlspecialchars($employee['email'] ?? 'N/A') ?>)
@@ -56,10 +59,10 @@ if (empty($employee) || !isset($employee['employee_id'])) {
             <input type="hidden" name="employee_id" value="<?= htmlspecialchars($employee['employee_id']) ?>">
             <input type="hidden" name="user_email" value="<?= htmlspecialchars($employee['email'] ?? '') ?>">
 
-            <p>Veuillez modifier les informations d'emploi ci-dessous :</p>
+            <p><?= $edit_lang['instruction_text'] ?></p>
 
             <div class="form-group">
-                <label for="position">Rôle/Poste :</label>
+                <label for="position"><?= $edit_lang['label_role'] ?> :</label>
                 <select id="position" name="position">
                     <?php foreach ($positions as $pos): ?>
                         <option value="<?= $pos ?>" <?= (($employee['position'] ?? '') === $pos) ? 'selected' : '' ?>>
@@ -70,18 +73,18 @@ if (empty($employee) || !isset($employee['employee_id'])) {
             </div>
 
             <div class="form-group">
-                <label for="hire_date">Date de recrutement :</label>
+                <label for="hire_date"><?= $edit_lang['label_hire_date'] ?> :</label>
                 <input type="date" id="hire_date" name="hire_date"
                        value="<?= htmlspecialchars($employee['hire_date'] ?? '') ?>" required>
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn-submit">💾 Enregistrer les modifications</button>
+                <button type="submit" class="btn-submit">💾 <?= $edit_lang['button_submit'] ?></button>
 
                 <button type="button"
                         class="btn-delete"
-                        onclick="confirmDelete('<?= htmlspecialchars($employee['employee_id']) ?>', '<?= htmlspecialchars($employee['user_prenom'] ?? 'Cet employé') ?>')">
-                    🗑️ Supprimer le compte
+                        onclick="confirmDelete('<?= htmlspecialchars($employee['employee_id']) ?>', '<?= htmlspecialchars($employee['user_prenom'] ?? $edit_lang['delete_confirm_default']) ?>', '<?= htmlspecialchars($edit_lang['delete_confirm_prompt']) ?>')">
+                    🗑️ <?= $edit_lang['button_delete'] ?>
                 </button>
             </div>
         </form>
@@ -93,9 +96,13 @@ if (empty($employee) || !isset($employee['employee_id'])) {
 <script>
     /**
      * Demande confirmation et envoie une requête POST de suppression.
+     * Note: J'ai ajouté un troisième argument 'promptTemplate' pour la traduction.
      */
-    function confirmDelete(employeeId, employeeName) {
-        if (confirm(`Êtes-vous sûr de vouloir SUPPRIMER le compte de l'employé ${employeeName} (#${employeeId}) ? Cette action est irréversible.`)) {
+    function confirmDelete(employeeId, employeeName, promptTemplate) {
+        // Remplace les placeholders %s dans le template pour la traduction
+        const message = promptTemplate.replace('%s', employeeName).replace('%s', employeeId);
+
+        if (confirm(message)) {
             // Crée dynamiquement un formulaire POST pour envoyer la requête de suppression
             const form = document.createElement('form');
             form.method = 'POST';
@@ -112,80 +119,6 @@ if (empty($employee) || !isset($employee['employee_id'])) {
         }
     }
 </script>
-
-<style>
-    /* Style de la boîte principale du formulaire */
-    .form-container {
-        max-width: 600px;
-        margin: 40px auto;
-        padding: 30px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    /* Style pour l'information statique */
-    .employee-info-header {
-        font-size: 1.6em;
-        color: #333;
-        margin-bottom: 20px;
-    }
-    .highlight-info {
-        font-weight: bold;
-        color: #007bff; /* Couleur pour mettre en évidence le nom/mail */
-    }
-
-    /* Style des groupes de champs */
-    .form-group { margin-bottom: 20px; }
-    .form-group label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #333;
-    }
-    .form-group input[type="date"],
-    .form-group select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 1em;
-    }
-
-    /* Style des actions et boutons */
-    .form-actions {
-        margin-top: 30px;
-        display: flex;
-        justify-content: space-between; /* Pour espacer les boutons */
-    }
-
-    .btn-submit,
-    .btn-delete {
-        border: none;
-        padding: 12px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1em;
-        transition: background-color 0.3s;
-        font-weight: bold;
-    }
-
-    /* Bouton Modifier (Enregistrer) */
-    .btn-submit {
-        background-color: #28A745; /* Vert pour succès/validation */
-        color: white;
-    }
-    .btn-submit:hover { background-color: #1e7e34; }
-
-    /* Bouton Supprimer (Danger) */
-    .btn-delete {
-        background-color: #DC3545; /* Rouge pour danger */
-        color: white;
-    }
-    .btn-delete:hover {
-        background-color: #C82333;
-    }
-</style>
 
 </body>
 </html>

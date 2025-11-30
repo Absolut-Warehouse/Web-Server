@@ -14,6 +14,12 @@ return [
         "team" => "Notre équipe",
         "subject" => "Sujet",
         "tech" => "Technique",
+          "logout" => "Se déconnecter",
+          "myorders" => "Mes commandes",
+          "employee_menu" => "Espace Employé",
+          "dashboard" => "Tableau de bord",
+          "package_list" => "Liste des packages",
+          "manage_employees" => "Gestion Des Employés",
   ],
 
 
@@ -49,6 +55,17 @@ return [
                             "text_address" => "<strong>Adresse :</strong> 123 Rue de l’Exemple, 75000 Paris, France",
                             "text_phone" => "<strong>Téléphone :</strong> +33 0 00 00 00 00",
                         ],
+
+                      "marketing_switch" => [
+                          "prefix" => "VOTRE COLIS",
+                          "suffix" => "GARANTI !",
+                          "flip_phrases" => [
+                              "À L'HEURE",
+                              "EN SÉCURITÉ",
+                              "PARTOUT DANS LE MONDE"
+                          ]
+                      ],
+
                   ],
             ],
     "FAQ" => [
@@ -338,5 +355,125 @@ return [
             "no" => "Non"
         ]
     ],
+
+
+    "employee_dashboard" => [
+        "title" => "Tableau de bord Employé",
+        "welcome" => "Bienvenue",
+        "section_account_role" => "Infos de Compte et Rôle",
+        "label_full_name" => "Nom complet",
+        "label_email" => "Email",
+        "label_phone" => "Téléphone",
+        "section_employment" => "Détails d'Emploi",
+        "label_employee_id" => "ID Employé",
+        "label_position" => "Poste",
+        "label_hire_date" => "Recrutement",
+        "label_not_available" => "N/A",
+        "section_terminals" => "Terminaux Assignés",
+        "terminal_assigned_text" => "Vous êtes affecté(e) aux terminaux suivants :",
+        "terminal_id_label" => "Terminal",
+        "terminal_name_unknown" => "Nom inconnu",
+        "terminal_location_label" => "Lieu",
+        "terminal_location_unspecified" => "Adresse non spécifiée",
+        "no_terminal_assigned" => "Vous n'avez actuellement aucun terminal assigné. Contactez votre gestionnaire.",
+    ],
+
+    "employee_edit" => [
+        "page_title" => "Modifier l'Employé",
+        "header_prefix" => "Modification de :",
+        "label_role" => "Rôle/Poste",
+        "label_hire_date" => "Date de recrutement",
+        "instruction_text" => "Veuillez modifier les informations d'emploi ci-dessous :",
+        "button_submit" => "Enregistrer les modifications",
+        "button_delete" => "Supprimer le compte",
+        "debug_error_title" => "🛑 Erreur de Chargement des Informations d'Employé",
+        "debug_error_text" => "Les informations de l'employé n'ont pas pu être chargées.",
+        "debug_error_content_title" => "Contenu de \$employee:",
+        "delete_confirm_prompt" => "Êtes-vous sûr de vouloir SUPPRIMER le compte de l'employé %s (#%s) ? Cette action est irréversible.", // %s seront remplacés par le nom et l'ID
+        "delete_confirm_default" => "Cet employé",
+    ],
+
+    "employee_list" => [
+        "page_title" => "Gestion des Employés",
+        "button_add" => "Ajouter un employé",
+        "table_header" => [
+            "full_name" => "Nom Complet",
+            "role" => "Rôle",
+            "email" => "Email",
+            "phone" => "Téléphone",
+            "status" => "Statut",
+            "actions" => "Actions",
+        ],
+        "role" => [
+            "manager" => "Gestionnaire",
+            "dispatcher" => "Répartiteur",
+            "delivery_driver" => "Livreur",
+            "unknown" => "Inconnu",
+        ],
+        "status" => [
+            "online" => "En ligne 🟢",
+            "inactive" => "Inactif",
+            "never_connected" => "Inactif",
+        ],
+        "no_employees_found" => "Aucun employé trouvé.",
+        "action_edit" => "Modifier ✏️",
+        "action_edit_title" => "Modifier l'employé",
+    ],
+
+    "package_list" => [
+        "page_title" => "Gestion des packages",
+        "search_placeholder" => "Code colis ou Emplacement...",
+        "search_button" => "Rechercher",
+        "reset_button" => "Réinitialiser",
+        "table_header" => [
+            "code" => "Code Colis",
+            "infos" => "Infos",
+            "weight" => "Poids (kg)",
+            "location" => "Emplacement",
+            "destination" => "Destination",
+            "status" => "Statut",
+            "entry" => "Entrée",
+            "exit" => "Sortie",
+            "estimated_delivery" => "Livraison Est.",
+        ],
+        "no_packages_found" => "Aucun colis trouvé.",
+        "info_fragile" => "Fragile ⚠️",
+        "info_refrigerated" => "Frais ❄️",
+        "location_not_stored" => "Non rangé",
+        "destination_na" => "N/D",
+        "pagination_prev" => "« Précédent",
+        "pagination_next" => "Suivant »",
+        "pagination_summary_prefix" => "Page",
+        "pagination_summary_middle" => "sur",
+        "pagination_summary_suffix" => "(Total:",
+    ],
+
+    "status_display" => [
+        "in_storage" => "En Stock",
+        "outbound" => "En cours de livraison",
+        "delivered" => "Livré",
+        "picked_up" => "Retiré",
+        "cancelled" => "Annulé",
+        "unknown" => "Inconnu",
+    ],
+
+    "employee_create" => [
+        "page_title" => "Ajouter un employé",
+        "main_header" => "➕ Ajouter un nouvel employé (Association de compte)",
+        "description" => "Veuillez fournir l'email d'un utilisateur existant pour l'associer à un rôle d'employé, puis définissez ses informations d'emploi.",
+        "error_prefix" => "Erreur lors de la création :",
+        "section_user_account" => "Compte Utilisateur",
+        "label_email" => "Email de l'utilisateur existant :",
+        "placeholder_email" => "Ex: nom.prenom@entreprise.com",
+        "hint_email" => "Cet utilisateur doit déjà exister dans la base de données.",
+        "section_employment_info" => "Informations d'Emploi",
+        "label_position" => "Poste / Rôle :",
+        "option_select_position" => "-- Sélectionnez un poste --",
+        "label_hire_date" => "Date de recrutement :",
+        "button_cancel" => "Annuler",
+        "button_submit" => "✅ Ajouter l'employé",
+    ],
+
+
 
 ];

@@ -1,19 +1,25 @@
 <?php
 return [
     "header" => [
-        "myaccount" => "我的账户",
-        "signup" => "注册",
-        "signin" => "登录",
-        "language" => "语言",
-        "english" => "英语",
-        "french" => "法语",
-        "chinese" => "中文",
-        "german" => "德语",
-        "spanish" => "西班牙语",
-        "mission" => "使命",
-        "team" => "团队",
-        "subject" => "主题",
-        "tech" => "技术",
+        "myaccount" => "我的账户", // Wǒ de zhànghù
+        "signup" => "注册", // Zhùcè
+        "signin" => "登录", // Dēnglù
+        "language" => "语言", // Yǔyán
+        "english" => "英语", // Yīngyǔ
+        "french" => "法语", // Fǎyǔ
+        "chinese" => "中文", // Zhōngwén
+        "german" => "德语", // Déyǔ
+        "spanish" => "西班牙语", // Xībānyá yǔ
+        "mission" => "宗旨", // Zōngzhǐ
+        "team" => "我们的团队", // Wǒmen de tuánduì
+        "subject" => "主题", // Zhǔtí
+        "tech" => "技术", // Jìshù
+        "logout" => "退出", // Tuìchū
+        "myorders" => "我的订单", // Wǒ de dìngdān
+        "employee_menu" => "员工专区", // Yuángōng zhuānqū
+        "dashboard" => "仪表板", // Yíbiǎobǎn
+        "package_list" => "包裹列表", // Bāoguǒ lièbiǎo
+        "manage_employees" => "员工管理", // Yuángōng guǎnlǐ
     ],
 
     "footer" => [
@@ -48,6 +54,17 @@ return [
                 "text_address" => "<strong>地址：</strong>法国巴黎75000示例街123号",
                 "text_phone" => "<strong>电话：</strong>+33 0 00 00 00 00",
             ],
+
+            "marketing_switch" => [
+                "prefix" => "您的包裹", // Nín de bāoguǒ (Votre colis)
+                "suffix" => "有保障！", // Yǒu bǎozhàng! (Garanti !)
+                "flip_phrases" => [
+                    "準時", // Zhǔn shí (À l'heure)
+                    "安全", // Ānquán (En sécurité)
+                    "全球配送" // Quánqiú pèisòng (Partout dans le monde / Livraison mondiale)
+                ]
+            ],
+
         ],
     ],
 
@@ -330,5 +347,123 @@ return [
             "no" => "否"
         ]
     ],
+
+    "employee_dashboard" => [
+        "title" => "员工仪表板",
+        "welcome" => "欢迎",
+        "section_account_role" => "账户与角色信息",
+        "label_full_name" => "全名",
+        "label_email" => "电子邮件",
+        "label_phone" => "电话",
+        "section_employment" => "雇佣详情",
+        "label_employee_id" => "员工编号",
+        "label_position" => "职位",
+        "label_hire_date" => "入职日期",
+        "label_not_available" => "不可用",
+        "section_terminals" => "分配终端",
+        "terminal_assigned_text" => "您分配了以下终端：",
+        "terminal_id_label" => "终端",
+        "terminal_name_unknown" => "未知名称",
+        "terminal_location_label" => "位置",
+        "terminal_location_unspecified" => "未指定地址",
+        "no_terminal_assigned" => "您当前没有分配的终端。请联系您的管理员。",
+    ],
+
+    "employee_edit" => [
+        "page_title" => "修改员工",
+        "header_prefix" => "修改：",
+        "label_role" => "角色/职位",
+        "label_hire_date" => "入职日期",
+        "instruction_text" => "请修改以下雇佣信息：",
+        "button_submit" => "保存修改",
+        "button_delete" => "删除账户",
+        "debug_error_title" => "🛑 员工信息加载错误",
+        "debug_error_text" => "员工信息未能加载。",
+        "debug_error_content_title" => "employee 的内容：",
+        "delete_confirm_prompt" => "您确定要删除员工 %s (#%s) 的账户吗？此操作不可逆。",
+        "delete_confirm_default" => "此员工",
+    ],
+
+    "employee_list" => [
+        "page_title" => "员工管理",
+        "button_add" => "添加员工",
+        "table_header" => [
+            "full_name" => "全名",
+            "role" => "角色",
+            "email" => "电子邮件",
+            "phone" => "电话",
+            "status" => "状态",
+            "actions" => "操作",
+        ],
+        "role" => [
+            "manager" => "经理",
+            "dispatcher" => "调度员",
+            "delivery_driver" => "送货员",
+            "unknown" => "未知",
+        ],
+        "status" => [
+            "online" => "在线 🟢",
+            "inactive" => "不活跃",
+            "never_connected" => "未连接",
+        ],
+        "no_employees_found" => "未找到员工。",
+        "action_edit" => "修改 ✏️",
+        "action_edit_title" => "修改员工",
+    ],
+
+    "package_list" => [
+        "page_title" => "包裹管理",
+        "search_placeholder" => "包裹编号或位置...",
+        "search_button" => "搜索",
+        "reset_button" => "重置",
+        "table_header" => [
+            "code" => "包裹编号",
+            "infos" => "信息",
+            "weight" => "重量 (kg)",
+            "location" => "位置",
+            "destination" => "目的地",
+            "status" => "状态",
+            "entry" => "入库",
+            "exit" => "出库",
+            "estimated_delivery" => "预计交付",
+        ],
+        "no_packages_found" => "未找到包裹。",
+        "info_fragile" => "易碎 ⚠️",
+        "info_refrigerated" => "冷藏 ❄️",
+        "location_not_stored" => "未存储",
+        "destination_na" => "无",
+        "pagination_prev" => "« 上一页",
+        "pagination_next" => "下一页 »",
+        "pagination_summary_prefix" => "页",
+        "pagination_summary_middle" => "共",
+        "pagination_summary_suffix" => "(总计:",
+    ],
+
+    "status_display" => [
+        "in_storage" => "在仓库",
+        "outbound" => "配送中",
+        "delivered" => "已交付",
+        "picked_up" => "已取件",
+        "cancelled" => "已取消",
+        "unknown" => "未知",
+    ],
+
+    "employee_create" => [
+        "page_title" => "添加员工",
+        "main_header" => "➕ 添加新员工 (账户关联)",
+        "description" => "请提供一个已存在用户的电子邮件，将其与员工角色关联，然后设置其雇佣信息。",
+        "error_prefix" => "创建错误：",
+        "section_user_account" => "用户账户",
+        "label_email" => "现有用户电子邮件：",
+        "placeholder_email" => "例如：nom.prenom@entreprise.com",
+        "hint_email" => "该用户必须已存在于数据库中。",
+        "section_employment_info" => "雇佣信息",
+        "label_position" => "职位/角色：",
+        "option_select_position" => "-- 选择职位 --",
+        "label_hire_date" => "入职日期：",
+        "button_cancel" => "取消",
+        "button_submit" => "✅ 添加员工",
+    ],
+
 
 ];
