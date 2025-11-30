@@ -19,6 +19,7 @@ use App\Controllers\AccountController;
 use App\Controllers\SearchController;
 use App\Controllers\TechController;
 use App\Controllers\LangController;
+use App\Controllers\EmployeeController;
 
 
 /**
@@ -54,4 +55,17 @@ Router::post('/account/update_address', [AccountController::class, 'updateAddres
 Router::post('/account/update_profile', [AccountController::class, 'updateProfile'])->requireLogin();
 
 
+/**
+ * ##############
+ * #  EMPLOYEE   #
+ * ##############
+ */
 
+Router::get('/dashboard', [EmployeeController::class, 'dashboard'])->requireLogin()->requireEmployee();
+Router::get('/package_list', [EmployeeController::class, 'packages'])->requireLogin()->requireEmployee();
+Router::get('/manage', [EmployeeController::class, 'employees'])->requireLogin()->requireEmployee()->requireAdmin();
+Router::get('/employee/edit', [EmployeeController::class, 'edit'])->requireLogin()->requireEmployee()->requireAdmin();
+Router::post('/employee/update', [EmployeeController::class, 'update'])->requireLogin()->requireEmployee()->requireAdmin();
+Router::post('/employee/delete', [EmployeeController::class, 'delete'])->requireLogin()->requireEmployee()->requireAdmin();
+Router::get('/employee/create', [EmployeeController::class, 'createForm'])->requireLogin()->requireEmployee()->requireAdmin();
+Router::post('/employee/create', [EmployeeController::class, 'create'])->requireLogin()->requireEmployee()->requireAdmin();

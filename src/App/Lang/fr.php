@@ -39,7 +39,7 @@ return [
                         ],
 
                         "security" => [
-                            "title" => "Chercher votre colis",
+                            "title" => "À propos de votre colis",
                             "text" => "Dans les mains de nos employés, votre colis sera en <strong>sécurité</strong>.Nous vous livrerons votre colis dans le plus bref délais.Vous pouvez consulter les estimations en cherchant votre colis sur votre compte ou en insérer simplement l'identifiant de votre colis dans la barre de recherche.",
                             "alt_img" => "Dessin d&apos un entrepôt",
                         ],

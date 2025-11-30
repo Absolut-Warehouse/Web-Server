@@ -68,15 +68,22 @@ class Auth
     /**
      * Retourne l'utilisateur connecté
      */
-    public static function user(): ?array
+    public static function user(): ?User
     {
         if (!self::check()) {
             return null;
         }
 
         $userId = $_SESSION[self::SESSION_USER_ID];
-        return (new User())->find((int)$userId);
+        $userData = (new User())->find((int)$userId);
+
+        if (!$userData) return null;
+
+        $user = new User();
+        $user->fill($userData); // fill() doit hydrater l'objet avec le tableau
+        return $user;
     }
+
 
     /**
      * Connecte un utilisateur

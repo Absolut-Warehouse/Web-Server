@@ -1,0 +1,124 @@
+/* Un peu de CSS pour rendre le tableau lisible */
+.toolbar { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.search-form input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.btn-search { padding: 8px 15px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+th { background-color: #f8f9fa; }
+th a { text-decoration: none; color: #333; font-weight: bold; }
+
+.badge { padding: 4px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold; }
+.badge-info { background: #e3f2fd; color: #0d47a1; }
+.badge-warning { background: #fff3e0; color: #e65100; }
+.badge-danger { background: #ffebee; color: #c62828; }
+.badge-success { background: #e8f5e9; color: #2e7d32; }
+
+.order-status {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+/* ... autres styles ... */
+
+.status {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+/* couleurs par statut - BASÉ SUR VOS COULEURS FOURNIES */
+.status.in_storage {
+    background-color: #3498db; /* Bleu clair */
+}
+.status.outbound {
+    background-color: #f39c12; /* Orange */
+}
+.status.delivered {
+    background-color: #2ecc71; /* Vert */
+}
+.status.picked_up {
+    background-color: #e74c3c; /* Rouge */
+}
+/* Ajoutez les couleurs pour 'cancelled' et 'unknown' si vous souhaitez qu'ils aient un style */
+.status.cancelled {
+    background-color: #95a5a6; /* Gris */
+}
+.status.unknown {
+    background-color: #7f8c8d; /* Gris foncé */
+}
+
+/* --- Pagination (Nouveaux Styles) --- */
+
+.pagination-container {
+    /* Utilise Flexbox pour aligner la navigation et le résumé sur la même ligne */
+    display: flex;
+    justify-content: space-between; /* Espace les éléments aux extrémités */
+    align-items: center;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* Ligne de séparation subtile */
+    font-family: Arial, sans-serif;
+}
+
+.pagination {
+    /* Style de la liste non ordonnée */
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.pagination li {
+    margin: 0 3px; /* Espacement entre les numéros de page */
+}
+
+.pagination a,
+.pagination span {
+    /* Style de base des boutons/liens */
+    display: block;
+    padding: 8px 14px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #007bff; /* Couleur primaire pour les liens */
+    transition: all 0.2s;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+/* Style de la page active */
+.pagination li.active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    /* Empêche le curseur de pointer vers le lien actif */
+    pointer-events: none;
+}
+
+/* Style des éléments désactivés ou des points de suspension (...) */
+.pagination li.disabled span {
+    color: #999;
+    background-color: #fff;
+    border-color: #fff;
+    cursor: default;
+}
+
+/* Style du texte de résumé (ex: Page 1 sur 10) */
+.pagination-container .summary {
+    font-size: 0.9em;
+    color: #666;
+    margin-right: 10px;
+}

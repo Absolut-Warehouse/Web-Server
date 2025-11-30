@@ -107,7 +107,6 @@ h1 a {
 
 h1 {
     color: orange;
-
 }
 
 .nav .nav-menu > li > a {
@@ -210,6 +209,9 @@ button:hover:after {
     margin-top: 30px;
 }
 
+.hide {
+    background-color: rgba(255, 255, 255, 0);
+}
 
 
 

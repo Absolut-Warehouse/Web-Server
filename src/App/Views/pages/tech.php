@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="<?= base_url('/css/tech.css') ?>"></link>
+    <link rel="stylesheet" href="<?= base_url('/css/tech.css') ?>">
     <?= view("partial/common_head", $data) ?>
 </head>
 <body>

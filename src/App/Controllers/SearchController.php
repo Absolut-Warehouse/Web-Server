@@ -68,11 +68,11 @@ class SearchController
 
     public function orders(): false|string
     {
-        $user = Auth::user();
+        $user = Auth::user(); // objet User
 
         $address = (new Address())
             ->query()
-            ->where('user_email', $user['email'])
+            ->where('user_email', $user->getEmail()) // ou $user->email si public
             ->first();
 
         $packages = [];
@@ -124,4 +124,5 @@ class SearchController
 
         return view('pages/orders', $data);
     }
+
 }

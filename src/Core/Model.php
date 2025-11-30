@@ -17,6 +17,7 @@ abstract class Model
     protected ?int $offset = null;
     protected ?string $orderBy = null;
     protected array $selects = ['*'];
+    protected array $joins = [];
 
     public function __construct()
     {
@@ -50,10 +51,18 @@ abstract class Model
      */
     protected function quoteIdentifier(string $identifier): string
     {
-        // Si c'est un alias "table.column" on quote chaque partie
-        if (strpos($identifier, '.') !== false) {
-            return implode('.', array_map(fn($p) => '"' . str_replace('"', '""', $p) . '"', explode('.', $identifier)));
+        if ($identifier === '*') {
+            return '*';
         }
+
+        // Si c'est table.column → quoter séparément
+        if (strpos($identifier, '.') !== false) {
+            return implode('.', array_map(
+                fn($p) => $p === '*' ? '*' : '"' . str_replace('"', '""', $p) . '"',
+                explode('.', $identifier)
+            ));
+        }
+
         return '"' . str_replace('"', '""', $identifier) . '"';
     }
 
@@ -61,6 +70,7 @@ abstract class Model
     {
         $this->wheres = [];
         $this->bindings = [];
+        $this->joins = [];
         $this->limit = null;
         $this->offset = null;
         $this->orderBy = null;
@@ -68,6 +78,12 @@ abstract class Model
     }
 
     /* ----------------- Query builder chainable ----------------- */
+
+    public function from(string $table): self
+    {
+        $this->table = $table;
+        return $this;
+    }
 
     /**
      * where('col','op', value) or where('col', value)
@@ -147,6 +163,10 @@ abstract class Model
     {
         $sql = 'SELECT ' . implode(', ', $this->selects) . ' FROM ' . $this->quoteIdentifier($this->table);
 
+        if (!empty($this->joins)) {
+            $sql .= ' ' . implode(' ', $this->joins);
+        }
+
         if (!empty($this->wheres)) {
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
@@ -168,16 +188,21 @@ abstract class Model
 
     public function get(): array
     {
-        $sql = $this->buildSelectSql();
+        $sql = $this->buildSelectSql();  // Récupère la requête SQL générée
+        // Logge la requête avant son exécution
+        error_log("SQL QUERY: " . $sql);  // Affiche la requête dans les logs
+
         $stmt = $this->db->prepare($sql);
         foreach ($this->bindings as $param => $val) {
             $stmt->bindValue($param, $val);
         }
         $stmt->execute();
         $results = $stmt->fetchAll();
+
         $this->resetQuery();
         return $results;
     }
+
 
     public function first(): ?array
     {
@@ -239,6 +264,7 @@ abstract class Model
         }
 
         $stmt->execute();
+
         return (int)$stmt->fetchColumn();
     }
 
@@ -310,7 +336,6 @@ abstract class Model
 
         $stmt->execute();
         $count = $stmt->rowCount();
-
         $this->resetQuery(); // pour éviter les fuites de bindings
         return $count;
     }
@@ -340,19 +365,37 @@ abstract class Model
         return $stmt->fetch() !== false;
     }
 
+    // Dans Core/Model.php
+
     public function count(): int
     {
+        // 1. Démarrer la requête COUNT
         $sql = 'SELECT COUNT(*) FROM ' . $this->quoteIdentifier($this->table);
 
+        // 2. AJOUT CRUCIAL : Inclure les JOINS pour que le WHERE soit valide
+        if (!empty($this->joins)) {
+            $sql .= ' ' . implode(' ', $this->joins);
+        }
+
+        // 3. Ajouter les clauses WHERE
         if (!empty($this->wheres)) {
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
+        // Log de la requête corrigée (Utile pour vérifier le SQL généré)
+        error_log("COUNT SQL QUERY (CORRECTED): " . $sql);
+
+        // 4. Préparer et Exécuter
         $stmt = $this->db->prepare($sql);
         foreach ($this->bindings as $param => $val) {
+            // Note : Les bindings sont déjà définis via les méthodes where/orWhere
             $stmt->bindValue($param, $val);
         }
+
+        // Ligne 374 (selon votre stack trace)
         $stmt->execute();
+
+        // 5. Réinitialiser et retourner le résultat
         $this->resetQuery();
         return (int)$stmt->fetchColumn();
     }
@@ -389,6 +432,47 @@ abstract class Model
             'last_page' => ceil($total / $perPage),
         ];
     }
+
+    /**
+     * Hydrate l'objet avec un tableau de données.
+     */
+    public function fill(array $data): self
+    {
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            } else {
+                // Crée dynamiquement la propriété si elle n'existe pas
+                $this->$key = $value;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * join('table', 'local.col', '=', 'foreign.col')
+     */
+    public function join(string $table, string $first, string $operator, string $second, string $type = 'INNER'): self
+    {
+        $type = strtoupper($type);
+
+        if (!in_array($type, ['INNER', 'LEFT', 'RIGHT', 'FULL'], true)) {
+            throw new \InvalidArgumentException("Invalid join type: $type");
+        }
+
+        $this->joins[] = sprintf(
+            '%s JOIN %s ON %s %s %s',
+            $type,
+            $this->quoteIdentifier($table),
+            $this->quoteIdentifier($first),
+            $operator,
+            $this->quoteIdentifier($second)
+        );
+
+        return $this;
+    }
+
+
 
 
 }

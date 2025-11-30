@@ -9,6 +9,7 @@ $config = include __DIR__ . '/../../Config/config.php'; // chemin vers ton fichi
 <html lang="fr">
 <head>
     <?= view("partial/common_head", $data) ?>
+    <link rel="stylesheet" href="<?= base_url('/css/animated.css') ?>">
 
 </head>
 <body>
@@ -16,6 +17,17 @@ $config = include __DIR__ . '/../../Config/config.php'; // chemin vers ton fichi
 <?= view("partial/header", $data) ?>
 
 <main>
+    <section class="main-content hide">
+        <div id="animated_switch">
+            YOUR PACKAGE
+            <div id="flip">
+                <div><div>ON TIME</div></div>
+                <div><div>SAFE</div></div>
+                <div><div>ANYWHERE</div></div>
+            </div>
+            GUARANTEED!
+        </div>
+    </section>
 
     <section class="main-content">
         <h2><?= $data['lang']["home"]["content"]["package"]["title"] ?></h2>
@@ -32,7 +44,6 @@ $config = include __DIR__ . '/../../Config/config.php'; // chemin vers ton fichi
         <p><?= $data['lang']["home"]["content"]["security"]["text"] ?></p>
         <img src="<?= base_url('/resources/entrepot.png') ?>"
              alt="<?= $data['lang']["home"]["content"]["security"]["alt_img"] ?>">
-
     </section>
 
 

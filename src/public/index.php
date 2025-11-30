@@ -26,6 +26,9 @@ require __DIR__ . '/../App/Models/Package.php';
 require __DIR__ . '/../App/Models/Order.php';
 require __DIR__ . '/../App/Models/UserActivity.php';
 require __DIR__ . '/../App/Models/Employee.php';
+require __DIR__ . '/../App/Models/WorksOn.php';
+require __DIR__ . '/../App/Models/Terminal.php';
+require __DIR__ . '/../App/Models/StorageZone.php';
 
 
 
@@ -50,7 +53,7 @@ require __DIR__ . '/../App/Controllers/AccountController.php';
 require __DIR__ . '/../App/Controllers/SearchController.php';
 require __DIR__ . '/../App/Controllers/TechController.php';
 require __DIR__ . '/../App/Controllers/LangController.php';
-
+require __DIR__ . '/../App/Controllers/EmployeeController.php';
 
 /**
  * Routes

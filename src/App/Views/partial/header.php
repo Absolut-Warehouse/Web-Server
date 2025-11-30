@@ -7,33 +7,32 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $config = require BASE_PATH . '/App/Config/config.php';
 $companyName = $config['app_info']['company_name'];
+
+// Initialiser $user pour qu'il soit disponible même après le premier if
+$user = Auth::check() ? Auth::user() : null;
 ?>
 
 <header class="site-header">
     <div class="header-content">
         <div class="box">
             <h1 class="logo">
-                    <a href="/">
-                        <img alt="Logo" src="<?= base_url('/resources/cardbox.ico') ?>" />
-                        <?= htmlspecialchars($companyName) ?>
-                    </a>
+                <a href="/">
+                    <img alt="Logo" src="<?= base_url('/resources/cardbox.ico') ?>" />
+                    <?= htmlspecialchars($companyName) ?>
+                </a>
             </h1>
             <nav class="nav">
                 <ul class="nav-menu">
+                    <!-- Mon compte -->
                     <li class="dropdown">
-                        <?php if (Auth::check()):
-                            $user = Auth::user();
-                            ?>
+                        <?php if (Auth::check() && $user): ?>
                             <a href="#account">
                                 <i class="fa-solid fa-user"></i>
                                 <?= $data['lang']["header"]["myaccount"] ?>
                             </a>
                             <div class="dropdown-content">
                                 <a href="/account"><?= $data['lang']["header"]["myaccount"] ?></a>
-
-                                <!-- Nouveau lien uniquement si connecté -->
                                 <a href="/orders"><?= $data['lang']["header"]["myorders"] ?? "Mes commandes" ?></a>
-
                                 <a href="/logout">Se déconnecter</a>
                             </div>
                         <?php else: ?>
@@ -47,10 +46,32 @@ $companyName = $config['app_info']['company_name'];
                             </div>
                         <?php endif; ?>
                     </li>
+
+                    <!-- Menu employé (si connecté et employé) -->
+                    <?php if (Auth::check() && $user && $user->isEmployee()): ?>
+                        <li class="dropdown">
+                            <a href="#employee">
+                                <i class="fa-solid fa-briefcase"></i>
+                                <?= $data['lang']["header"]["employee_menu"] ?? "Espace Employé" ?>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="/dashboard"><?= $data['lang']["header"]["dashboard"] ?? "Menu Employée" ?></a>
+                                <a href="/package_list"><?= $data['lang']["header"]["dashboard"] ?? "Listes des packages" ?></a>
+                                <?php
+                                if ($user->isManager()):
+                                    ?>
+                                    <a href="/manage"><?= $data['lang']["header"]["dashboard"] ?? "Gestion Des Employés" ?></a>
+                                <?php endif; ?>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+
+                    <!-- Menu langue -->
                     <li class="dropdown">
                         <a href="#settings">
                             <i class="fa-solid fa-language"></i>
-                            <?= $data['lang']["header"]["language"] ?></a>
+                            <?= $data['lang']["header"]["language"] ?>
+                        </a>
                         <div class="dropdown-content">
                             <a href="/lang?lang=en"><span class="fi fi-us"></span> <?= $data['lang']["header"]["english"] ?></a>
                             <a href="/lang?lang=fr"><span class="fi fi-fr"></span> <?= $data['lang']["header"]["french"] ?></a>

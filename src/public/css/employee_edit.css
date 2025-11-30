@@ -1,0 +1,141 @@
+.form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+h2 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+.form-group { margin-bottom: 18px; }
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* S'assure que le padding n'augmente pas la largeur */
+    font-size: 1em;
+}
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.btn-submit {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+.btn-submit:hover { background-color: #0056b3; }
+.btn-cancel {
+    display: block;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1em;
+    background-color: #6c757d;
+    color: white;
+    text-align: center;
+}
+.btn-cancel:hover { background-color: #5a6268; }
+
+/* Style général du formulaire */
+form {
+    max-width: 600px; /* Largeur maximale */
+    margin: 0 auto; /* Centrer le formulaire */
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour effet de profondeur */
+}
+
+/* Style des champs du formulaire */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%; /* Prend toute la largeur disponible */
+    padding: 12px; /* Espace intérieur */
+    margin: 8px 0; /* Espace entre les champs */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+    box-sizing: border-box; /* S'assurer que le padding ne dépasse pas */
+    font-size: 16px; /* Taille de police */
+}
+
+/* Style pour les champs de texte lors du focus */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #4CAF50; /* Bordure verte au focus */
+    outline: none; /* Retirer l'effet de contour */
+}
+
+/* Style des labels */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Style des boutons */
+button,
+input[type="submit"] {
+    background-color: #4CAF50; /* Couleur verte */
+    color: white; /* Texte en blanc */
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer; /* Curseur pointer */
+    transition: background-color 0.3s ease;
+}
+
+/* Effet au survol pour le bouton */
+button:hover,
+input[type="submit"]:hover {
+    background-color: #45a049; /* Couleur verte plus foncée au survol */
+}
+
+/* Style des messages d'erreur */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Style des sections du formulaire */
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Style pour le titre du formulaire */
+legend {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4CAF50;
+}

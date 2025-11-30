@@ -154,30 +154,18 @@ class AccountController
         $lang = Lang::get();
         $user = Auth::user();
         $addressModel = new Address();
-        $address = $user ? $addressModel->where('user_email', $user['email'])->first() : null;
-
-        $content = [
-            'user_nom' => $user['user_nom'] ?? '',
-            'user_prenom' => $user['user_prenom'] ?? '',
-            'email' => $user['email'] ?? '',
-            'user_phone_number' => $user['user_phone_number'] ?? '',
-            'sexe' => $user['sexe'] ?? '',
-            'address' => $address ? ($address['street_number'] . ' ' . $address['street']) : 'Non définie',
-            'address_line1' => $address['street'] ?? '',
-            'address_line2' => $address['complementary'] ?? '',
-            'city' => $address['city'] ?? '',
-            'postal_code' => $address['postal_code'] ?? '',
-            'country' => $address['country'] ?? ''
-        ];
+        $address = $user ? $addressModel->where('user_email', $user->getEmail())->first() : null;
 
         $data = [
             "lang" => $lang,
             "page_title" => $lang['myaccount']['title'] ?? 'Mon compte',
-            "content" => $content
+            "user" => $user,
+            "address" => $address
         ];
 
         return view('pages/account', $data);
     }
+
 
 
 
@@ -256,7 +244,7 @@ class AccountController
 
         // Mise à jour
         try {
-            $userModel->update($user['user_id'], $fields);
+            $userModel->update($user->user_id, $fields);
             $_SESSION['success'] = "Profil mis à jour avec succès.";
         } catch (\PDOException $e) {
             // Gestion des erreurs SQL
@@ -304,12 +292,12 @@ class AccountController
             'street' => $street,
             'complementary' => $complementary !== '' ? $complementary : null,
             'street_number' => $street_number !== '' ? $street_number : null,
-            'user_email' => $user['email'],
+            'user_email' => $user->getEmail(),
         ];
 
         try {
             // Vérifier si une adresse existe pour cet utilisateur (user_email)
-            $existing = $addressModel->query()->where('user_email', $user['email'])->first();
+            $existing = $addressModel->query()->where('user_email', $user->getEmail())->first();
 
             if ($existing) {
                 // Mettre à jour l'adresse existante (update attend l'id)
@@ -349,7 +337,7 @@ class AccountController
         try {
             // ✅ On ajoute une clause WHERE explicite
             $userModel->query()
-                ->where('user_id', $user['user_id'])
+                ->where('user_id', $user->user_id)
                 ->delete();
 
             // On détruit la session
